@@ -14,7 +14,7 @@ class User(models.Model):
 
 
     def __unicode__(self):
-        return u"{} : {}".format(self.name, self.university_id)
+        return u"{} : {}".format(self.name, self.pk)
 
     def __str__(self):
-        return "{} : {}".format(self.name, self.university_id)
+        return "{} : {}".format(self.name, self.pk)
