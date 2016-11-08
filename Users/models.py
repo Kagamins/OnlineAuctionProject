@@ -18,3 +18,10 @@ class User(models.Model):
 
     def __str__(self):
         return "{} : {}".format(self.name, self.pk)
+    def signup(self, request, user):
+        User.objects.create(
+            user=user,
+            name=user.username,
+            email=user.email,
+            twitter_id=self.cleaned_data.get('twitter_id')
+        )
