@@ -13,11 +13,12 @@ from django.db.models import Avg, Max, Min
 from .forms import newAuctionForm
 from .models import auction
 
+
 @login_required
 def createAuction(request):
 
     if request.method == 'POST':
-        form = newAuctionForm(request.POST,request.FILES)
+        form = newAuctionForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save()
             return redirect(obj)
@@ -33,6 +34,8 @@ def createAuction(request):
             "form": form,
         }
     )
+
+
 class Create_Auction(CreateView):
     model = auction
     # we require all fields since students will need register him/her self
