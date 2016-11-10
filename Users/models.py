@@ -14,8 +14,16 @@ class User(models.Model):
     def get_absolute_url(self):
         return reverse('home', kwargs={'pk': self.pk})
 
+
     def __unicode__(self):
-        return u"{} : {}".format(self.name, self.twitter_id)
+        return u"{} : {}".format(self.name, self.pk)
 
     def __str__(self):
-        return "{} : {}".format(self.name, self.twitter_id)
+        return "{} : {}".format(self.name, self.pk)
+    def signup(self, request, user):
+        User.objects.create(
+            user=user,
+            name=user.username,
+            email=user.email,
+            twitter_id=self.cleaned_data.get('twitter_id')
+        )
