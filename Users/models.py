@@ -11,6 +11,8 @@ class User(models.Model):
     twitter_id = models.CharField(max_length=50, null=True, blank=True, default="")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('home', kwargs={'pk': self.pk})
 
 
     def __unicode__(self):

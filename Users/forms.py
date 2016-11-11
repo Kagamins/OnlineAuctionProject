@@ -16,6 +16,5 @@ class SignupForm(forms.ModelForm):
             user=user,
             name=user.username,
             email=user.email,
-            university_id=self.cleaned_data.get('university_id'),
             twitter_id=self.cleaned_data.get('twitter_id')
         )
