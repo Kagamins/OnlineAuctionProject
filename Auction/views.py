@@ -11,7 +11,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic import DetailView
 from django.db.models import Avg, Max, Min
 from .forms import newAuctionForm
-from .models import auction
+from .models import auction,live_auction
 
 
 @login_required
@@ -47,3 +47,9 @@ class Edit_Auction(UpdateView):
     fields = '__all__'
     context_object_name = 'auction'
     template_name = 'editAuction.html'
+
+class Bid_Auction(CreateView):
+    model = live_auction
+    exclude = ['auction','Bidder_name','Time_of_Bid']
+    context_object_name = 'auction'
+    template_name = 'bidAuction.html'
