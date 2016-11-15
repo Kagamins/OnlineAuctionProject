@@ -16,7 +16,7 @@ from .models import auction, live_auction, item
 def createAuction(request):
 
     if request.method == 'POST':
-        form = newAuctionForm(request.POST, request.FILES)
+        form = newAuctionForm(request.POST)
         if form.is_valid():
             obj = form.save()
             return redirect(obj)
@@ -36,10 +36,8 @@ def createAuction(request):
 
 class Create_Auction(CreateView):
     model = auction
-    # we require all fields since students will need register him/her self
     fields = '__all__'
     template_name = 'createAuction.html'
-
 
 class Edit_Auction(UpdateView):
     model = auction
@@ -47,11 +45,10 @@ class Edit_Auction(UpdateView):
     context_object_name = 'auction'
     template_name = 'editAuction.html'
 
-
 class Bid_Auction(CreateView):
     model = live_auction
-    exclude = ['auction', 'Bidder_name', 'Time_of_Bid']
-    context_object_name = 'auction'
+    fields = '__all__'
+    context_object_name = 'live_auction'
     template_name = 'bidAuction.html'
 
 
@@ -66,7 +63,7 @@ class View_Auction(DetailView):
     context_object_name = 'auction'
     template_name = 'auctiondetail.html'
 
-
+@login_required
 def create_product(request):
     if request.method == 'POST':
         form = newProductForm(request.POST, request.FILES)
@@ -79,5 +76,15 @@ def create_product(request):
 
 
 def index_page(request):
-    obj = live_auction.objects.all()
-    return render(request, 'Index.html', {'auction': obj})
+    obj = live_auction.objects.all().order_by('-id')
+    queryset= item.objects.all()
+    if request.method == 'POST':
+	     qs= item.objects.filter(product_name__icontains=request.POST['term'])
+	     return render(request, 'Index.html',
+                 {'auction': obj,
+                 'product':queryset,
+                 'item_search':qs })
+    else:
+        return render(request, 'Index.html',
+                         {'auction': obj,
+                         'product':queryset})
