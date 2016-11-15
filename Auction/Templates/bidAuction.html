@@ -1,0 +1,7 @@
+{% extends "Base.html"%} {% block content %}
+<form method="post" action="{% url 'Bid_Auction' auction.auction_id %}">
+  {% csrf_token %}
+    {{ form.as_p }}
+<input class="btn btn-default btn-primary" type="submit" value="Done">
+</form>
+{% endblock %}

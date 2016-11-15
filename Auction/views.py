@@ -2,16 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import Http404, HttpResponseRedirect
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import UpdateView, FormView, CreateView
 from django.db.models import Avg, Max, Min
 from .forms import newAuctionForm, newProductForm
-from .models import auction,live_auction, item
-
-
+from .models import auction, live_auction, item
 
 
 @login_required
@@ -42,22 +40,32 @@ class Create_Auction(CreateView):
     fields = '__all__'
     template_name = 'createAuction.html'
 
+
 class Edit_Auction(UpdateView):
     model = auction
     fields = '__all__'
     context_object_name = 'auction'
     template_name = 'editAuction.html'
 
+
 class Bid_Auction(CreateView):
     model = live_auction
-    exclude = ['auction','Bidder_name','Time_of_Bid']
+    exclude = ['auction', 'Bidder_name', 'Time_of_Bid']
     context_object_name = 'auction'
     template_name = 'bidAuction.html'
+
 
 class Create_Product(FormView):
     model = item
     context_object_name = 'product'
     template_name = 'createItem.html'
+
+
+class View_Auction(DetailView):
+    model = auction
+    context_object_name = 'auction'
+    template_name = 'auctiondetail.html'
+
 
 def create_product(request):
     if request.method == 'POST':
@@ -68,3 +76,8 @@ def create_product(request):
     else:
         form = newProductForm()
     return render(request, 'createItem.html', {'form': form})
+
+
+def index_page(request):
+    obj = live_auction.objects.all()
+    return render(request, 'Index.html', {'auction': obj})
