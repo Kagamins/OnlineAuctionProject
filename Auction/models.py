@@ -12,7 +12,7 @@ class item(models.Model):
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
 
-    picture = models.FileField()
+    picture = models.FileField(null=True,blank=True)
     product_description = models.TextField()
     def get_absolute_url(self):
         return reverse(

@@ -1,4 +1,4 @@
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <form method="post" action="{% url 'Create_Auction' %}">
   {% csrf_token %} {{ form.as_p }}
 

@@ -14,3 +14,8 @@ class EditAuctionForm(forms.ModelForm):
         model = auction
         exclude = ['product']
         widgets = {'user' : forms.HiddenInput}
+class newProductForm(forms.ModelForm):
+    class Meta:
+        model = item
+        fields = '__all__'
+        widgets = { 'picture' : forms.ClearableFileInput()}

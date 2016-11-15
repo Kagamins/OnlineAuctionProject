@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import Http404
-from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.http import Http404, HttpResponseRedirect
+from django.views.generic import ListView,DetailView
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.views.generic.edit import UpdateView
-from django.views.generic import DetailView
+from django.views.generic.edit import UpdateView, FormView, CreateView
 from django.db.models import Avg, Max, Min
-from .forms import newAuctionForm
-from .models import auction,live_auction
+from .forms import newAuctionForm, newProductForm
+from .models import auction,live_auction, item
+
+
 
 
 @login_required
@@ -53,3 +53,18 @@ class Bid_Auction(CreateView):
     exclude = ['auction','Bidder_name','Time_of_Bid']
     context_object_name = 'auction'
     template_name = 'bidAuction.html'
+
+class Create_Product(FormView):
+    model = item
+    context_object_name = 'product'
+    template_name = 'createItem.html'
+
+def create_product(request):
+    if request.method == 'POST':
+        form = newProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = newProductForm()
+    return render(request, 'createItem.html', {'form': form})
