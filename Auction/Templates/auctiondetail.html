@@ -1,0 +1,21 @@
+{% extends "Base.html"%} {% block content %}
+<div class="list-group">
+  <p id="time"></p>
+
+  <script>
+  //<====script to show the current date and time =====>
+  document.getElementById("time").innerHTML = new Date();
+  </script>
+    <p class="list-group-item-text">Auction Made by {{auction.user.username}}</p>
+    <h4 class="list-group-item-heading">{{auction.product.product_name}}</h4>
+    <p class="list-group-item-text">Product Description {{auction.product.product_description}}</p>
+    <p class="list-group-item-text">Date of Auction :{{auction.auction_date}}</p>
+    <p class="list-group-item-text">Time of Auction :{{auction.auction_time}}</p>
+
+  </a>
+</div>
+
+<a class="btn btn-default btn-primary"  href="{% url 'home'  %}"> Homepage  </a>
+
+</form>
+{% endblock %}
