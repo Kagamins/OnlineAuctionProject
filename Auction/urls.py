@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^edit/(?P<pk>\d+)$', views.Edit_Auction.as_view(), name='Edit_Auction',),
     url(r'^view/(?P<pk>\d+)$',views.View_Auction.as_view(), name='View_Auction',),
     url(r'^bid/(?P<pk>\d+)$',
-        views.Bid_Auction.as_view(), name='Bid_Auction',),
+        views.bid_auction, name='Bid_Auction',),
 ]

@@ -41,17 +41,27 @@ class auction(models.Model):
         return u"{} :{} : {}: {} : at {}".format(self.user.username, self.product.product_name, self.product.manufacture_year, self.auction_date, self.auction_time)
 
 
+
 class live_auction(models.Model):
     auction = models.ForeignKey(auction)
+    Time_of_Bid = models.TimeField(auto_now=True,null=True)
+
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
-    User_bid = models.BigIntegerField(null=True, help_text=("user bidding"))
-    Bidder_name = models.OneToOneField(
-        settings.AUTH_USER_MODEL, null=True, blank=True)
-    Time_of_Bid = models.TimeField(auto_now=True)
 
+    def __str__(self):
+        return u"{} : {}  ".format(self.auction, self.initial_bid)
     def __unicode__(self):
-        return u"{} : {} :{} ".format(self.Bidder_name.username, self.User_bid, self.Time_of_Bid)
-        def get_absolute_url(self):
-            return reverse(
+        return u"{} : {}  ".format(self.auction, self.initial_bid)
+    def get_absolute_url(self):
+        return reverse(
             'home')
+
+class bid(models.Model):
+    l_auction= models.ForeignKey(live_auction)
+    User_bid = models.BigIntegerField(null=True, help_text=("user bidding"))
+    Bidder = models.OneToOneField(
+            settings.AUTH_USER_MODEL, null=True, blank=True)
+    Time_of_Bid = models.TimeField(auto_now=True,null=True)
+    def __str__(self):
+        return u'{} : {} : {} : {}'.format(self.l_auction.auction.user.name, self.l_auction.initial_bid, self.User_bid,self.Time_of_Bid)

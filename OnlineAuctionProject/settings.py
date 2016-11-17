@@ -15,9 +15,9 @@ import os
 from unipath import Path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = Path(__file__).ancestor(1)
-MEDIA_ROOT = PROJECT_DIR .child("media")
-STATIC_ROOT = PROJECT_DIR .child("static")
-STATICFILES_DIRS = (PROJECT_DIR .child("assets"), )
+MEDIA_ROOT = PROJECT_DIR.child("media")
+STATIC_ROOT = PROJECT_DIR.child("static")
+STATICFILES_DIRS = (PROJECT_DIR.child("assets"), MEDIA_ROOT)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/

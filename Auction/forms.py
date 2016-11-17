@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from .models import auction,item
+from .models import auction,item,bid
 from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 
 class newAuctionForm(forms.ModelForm):
@@ -29,3 +29,9 @@ class newProductForm(forms.ModelForm):
         model = item
         fields = '__all__'
         widgets = { 'picture' : forms.ClearableFileInput()}
+
+class newBidForm(forms.ModelForm):
+    class Meta:
+        model = bid
+        fields = '__all__'
+        widgets  = {'Bidder' : forms.HiddenInput}
