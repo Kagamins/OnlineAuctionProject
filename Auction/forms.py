@@ -35,3 +35,9 @@ class newBidForm(forms.ModelForm):
         model = bid
         fields = '__all__'
         widgets  = {'Bidder' : forms.HiddenInput}
+    def newbid(self,request,user):
+        bid.objects.create(
+        Bidder = user,
+        User_bid = self.cleaned_data.get('User_bid'),
+        Time_of_Bid = self.cleaned_data.get('Time_of_Bid'),
+        l_auction= self.cleaned_data.get('l_auction'))

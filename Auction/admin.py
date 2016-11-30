@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import item,auction,live_auction
+from .models import item,auction,live_auction,bid
 
 # Register your models here.
 class AuctionInLine(admin.StackedInline):
@@ -13,3 +13,4 @@ class ItemAdmin(admin.ModelAdmin):
 admin.site.register(auction)
 admin.site.register(item,ItemAdmin)
 admin.site.register(live_auction)
+admin.site.register(bid)

@@ -1,7 +1,13 @@
 {% extends "Base.html"%} {% block content %}
 <form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
-  {% csrf_token %}
-    {{ form.as_p }}
-<input class="btn btn-default btn-primary" type="submit" value="Done">
+    {% csrf_token %} {{ form.as_table }}
+    <input class="btn btn-default btn-primary" type="submit" value="Done">
 </form>
-{% endblock %}
+{%for b in bids%}
+<div class="list-group">
+    <a class="list-group-item">
+        <h4 class="list-group-item-heading">{{b.Bidder.username}}</h4>
+        <p class="list-group-item-text">{{b.User_bid}}</p>
+    </a>
+</div>
+{%endfor%} {% endblock %}

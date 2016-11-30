@@ -1,16 +1,15 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.http import Http404, HttpResponseRedirect
-from django.views.generic import ListView, DetailView
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from django.contrib import messages
-from django.core.urlresolvers import reverse
-from django.views.generic.edit import UpdateView, FormView, CreateView
-from django.db.models import Avg, Max, Min
-from .forms import newAuctionForm, newProductForm,newBidForm
-from .models import auction, live_auction, item,bid
-
+from django.contrib.auth.decorators import *
+from django.utils.decorators import *
+from django.http import *
+from django.views.generic import *
+from django.shortcuts import *
+from django.contrib import *
+from django.core.urlresolvers import *
+from django.views.generic.edit import *
+from django.db.models import *
+from .forms import *
+from .models import *
+from django.core.paginator import *
 
 @login_required
 def createAuction(request):
@@ -19,7 +18,7 @@ def createAuction(request):
         form = newAuctionForm(request.POST)
         if form.is_valid():
             obj = form.save()
-            return redirect(obj)
+            return HttpResponseRedirect('/success/url/')
     else:
 
         form = newAuctionForm(initial={'user': request.user.pk,
@@ -50,15 +49,16 @@ class Edit_Auction(UpdateView):
 @login_required
 def bid_auction(request,pk):
     auction = get_object_or_404(live_auction, pk=pk)
-
+    bidders = bid.objects.filter(l_auction_id=pk)
     if request.method == 'POST':
         form = newBidForm(request.POST,instance=auction)
         if form.is_valid():
+            print('form is valid :D')
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
-        form = newBidForm(initial={'l_auction': pk,'Bidder':request.user})
-    return render(request, 'bidAuction.html', {'form': form,'live_auction':auction})
+        form = newBidForm(initial={'l_auction': auction,'Bidder':request.user})
+    return render(request, 'bidAuction.html', {'form': form,'live_auction':auction,'bids':bidders})
 
 
 class Bid_Auction(UpdateView):
@@ -80,6 +80,7 @@ class View_Auction(DetailView):
     template_name = 'auctiondetail.html'
 
 
+
 @login_required
 def create_product(request):
     if request.method == 'POST':
@@ -91,20 +92,30 @@ def create_product(request):
         form = newProductForm()
     return render(request, 'createItem.html', {'form': form})
 
+def product_details(request,pk):
+        obj = get_object_or_404(item, pk=pk)
+        #alist = [x for x in obj]
+        return render(request,'product_details.html', {
+        'item': obj},)
 
 def index_page(request):
     obj = live_auction.objects.all().order_by('-id')
-    queryset = item.objects.all()
-    bidobj = bid.objects.filter(l_auction_id=obj[0].pk)
+    premium_obj= live_auction.objects.filter(auction__auction_type='P')
+    queryset = item.objects.all().order_by('-id')
+    paginator = Paginator(queryset,5)
+    page = request.GET.get('page')
+    #for o in queryset:
+    #    queryset_dict[o.product_name] = [o.manufacture_year,o.product_description,o.picture];
+
     if request.method == 'POST':
-	     qs = item.objects.filter(product_name__icontains=request.POST['term'])
+	     qs = item.objects.filter(product_name__icontains=request.POST.get('term',False))
 	     return render(request, 'Index.html',
                  {'auction': obj,
+                 'p_auction':premium_obj,
                  'product':queryset,
-                 'item_search':qs,
-                 'bids':bidobj})
+                 'item_search':qs})
     else:
         return render(request, 'Index.html',
                          {'auction': obj,
-                         'product':queryset,
-                         'bids':bidobj})
+                         'p_auction':premium_obj,
+                         'product':queryset})

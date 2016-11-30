@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 import os
+from decimal import Decimal
+
 
 
 def get_image_path(instance, filename):
@@ -8,12 +10,14 @@ def get_image_path(instance, filename):
 
 
 class item(models.Model):
+    CHOICES=(('C','Cars'),('P','Parts'))
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
-
-    picture = models.FileField(null=True, blank=True)
+    picture = models.ImageField(null=True, blank=True)
     product_description = models.TextField()
+    certificate = models.ImageField(null=True, blank=True)
+    product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES,null=True)
 
     def get_absolute_url(self):
         return reverse(
@@ -21,16 +25,18 @@ class item(models.Model):
             kwargs={'user': self.pk})
 
     def __unicode__(self):
-        return u"{} : {}".format(self.product_name, self.manufacture_year)
+        return u"{} : {}:{}".format(self.product_name, self.manufacture_year, self.product_type)
 
     def __str__(self):
         return u"{} : {}".format(self.product_name, self.manufacture_year)
 
 
 class auction(models.Model):
+    Choices = (('P','Premium'),('F','Freemium'))
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, null=True, blank=True)
     product = models.ForeignKey(item)
+    auction_type = models.CharField("auction_type",max_length=64 ,choices=Choices,null=True)
     auction_date = models.DateField()
     auction_time = models.TimeField()
 
@@ -44,11 +50,10 @@ class auction(models.Model):
 
 class live_auction(models.Model):
     auction = models.ForeignKey(auction)
-    Time_of_Bid = models.TimeField(auto_now=True,null=True)
-
+    Time_of_Auction = models.TimeField(null=True)
+    #Live = models.BooleanField(NullBooleanField=True)
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
-
     def __str__(self):
         return u"{} : {}  ".format(self.auction, self.initial_bid)
     def __unicode__(self):
@@ -64,4 +69,4 @@ class bid(models.Model):
             settings.AUTH_USER_MODEL, null=True, blank=True)
     Time_of_Bid = models.TimeField(auto_now=True,null=True)
     def __str__(self):
-        return u'{} : {} : {} : {}'.format(self.l_auction.auction.user.name, self.l_auction.initial_bid, self.User_bid,self.Time_of_Bid)
+        return u'{} : {} : {} : {}'.format(self.l_auction.auction.user.username, self.l_auction.initial_bid, self.User_bid,self.Time_of_Bid)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import *
 
 class SignupForm(forms.ModelForm):
     class Meta:
@@ -12,9 +12,17 @@ class SignupForm(forms.ModelForm):
     # twitter_id = forms.CharField(required=False)
 
     def signup(self, request, user):
-        Student.objects.create(
+        User.objects.create(
             user=user,
             name=user.username,
             email=user.email,
-            twitter_id=self.cleaned_data.get('twitter_id')
+            Phone_num= self.cleaned_data.get('Phone_num')
         )
+class Message_Form(forms.ModelForm):
+    class Meta:
+        model = message
+        fields = '__all__'
+        widgets = {
+        'sender' : forms.HiddenInput,
+        'date_time_sent' : forms.HiddenInput,
+        }
