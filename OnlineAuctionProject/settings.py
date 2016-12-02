@@ -18,6 +18,7 @@ PROJECT_DIR = Path(__file__).ancestor(1)
 MEDIA_ROOT = PROJECT_DIR.child("media")
 STATIC_ROOT = PROJECT_DIR.child("static")
 STATICFILES_DIRS = (PROJECT_DIR.child("assets"), MEDIA_ROOT)
+MEDIA_URL = '/media/'
 
 
 # Quick-start development settings - unsuitable for production

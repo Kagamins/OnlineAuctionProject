@@ -1,7 +1,9 @@
-{% extends "Base.html"%} {% block content %}
-<form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
+{% extends "Base.html"%}
+{% block content %}
+<!---{% if bids.Bidder == request.user %}
+<form method="post" action="{% url 'Update_Bid_Auction' live_auction.pk %}">
     {% csrf_token %} {{ form.as_table }}
-    <input class="btn btn-default btn-primary" type="submit" value="Done">
+    <input class="btn btn-default btn-primary" type="submit" value="Done!">
 </form>
 {%for b in bids%}
 <div class="list-group">
@@ -10,4 +12,14 @@
         <p class="list-group-item-text">{{b.User_bid}}</p>
     </a>
 </div>
-{%endfor%} {% endblock %}
+{%endfor%}
+{%else%}--->
+
+<form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
+    {% csrf_token %} {{ form.as_table }}
+    <input class="btn btn-default btn-primary" type="submit" value="Done!">
+</form>
+
+{% endif %}
+
+{% endblock %}

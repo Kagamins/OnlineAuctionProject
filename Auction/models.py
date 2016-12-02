@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 import os
 from decimal import Decimal
+from django.core.urlresolvers import *
+
 
 
 
@@ -11,6 +13,7 @@ def get_image_path(instance, filename):
 
 class item(models.Model):
     CHOICES=(('C','Cars'),('P','Parts'))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True,blank=True)
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
@@ -68,5 +71,17 @@ class bid(models.Model):
     Bidder = models.OneToOneField(
             settings.AUTH_USER_MODEL, null=True, blank=True)
     Time_of_Bid = models.TimeField(auto_now=True,null=True)
+    def get_absolute_url(self):
+        return reverse(
+            'home')
     def __str__(self):
         return u'{} : {} : {} : {}'.format(self.l_auction.auction.user.username, self.l_auction.initial_bid, self.User_bid,self.Time_of_Bid)
+
+class Payment(models.Model):
+    CHOICES = (('Cash','Cash'),('Knet','Knet'),('Visa','Visa'))
+    User = models.OneToOneField(settings.AUTH_USER_MODEL,null=False)
+    Amount = models.BigIntegerField(null=False)
+    Payment_Method = models.CharField("Payment method",max_length=50,choices=CHOICES)
+
+    def __str__(self):
+        return u'{} : {} : {} '.format(self.User.username, self.Amount, self.Payment_Method)
