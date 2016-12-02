@@ -1,0 +1,53 @@
+
+
+{%  extends "Base.html" %} {%  block content %}
+
+
+<table style="width:100%">
+  <tr>
+        <th>
+            product name:
+        </th>
+        <th>
+            manufacture year:
+        </th>
+        <th>
+            picture:
+        </th>
+         <th>
+            product description:
+        </th>
+        <th>
+           product certificate:
+       </th>
+    </tr>
+<tr>
+
+<td>
+ {{ item.product_name }}
+</td>
+<td>
+{{ item.manufacture_year }}
+
+</td>
+<td>
+<img src="{{MEDIA_URL}}{{ item.picture }}" width="180" height="150" />
+</td>
+<td>
+{{ item.product_description }}
+</td>
+<td>
+<img src="{{MEDIA_URL}}{{ item.certificate }}" width="180" height="150" />
+</td>
+
+</tr>
+
+</table>
+{%if item.owner == request.user %}
+<a href="{% url 'Edit_Product' item.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-pencil'> </span> </a>
+
+<a href="{% url 'product_delete' item.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
+{%endif%}
+<a class="btn btn-default btn-primary"  href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span>  </a>
+
+{%  endblock %}
