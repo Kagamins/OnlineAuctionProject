@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 
 class SignupForm(forms.ModelForm):
     class Meta:
@@ -7,6 +8,8 @@ class SignupForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
         'user' : forms.HiddenInput,
+        'Date_Of_Birth' : DateWidget(bootstrap_version=3),
+
         }
     # university_id = forms.CharField(required=False)
     # twitter_id = forms.CharField(required=False)
@@ -18,6 +21,7 @@ class SignupForm(forms.ModelForm):
             email=user.email,
             Phone_num= self.cleaned_data.get('Phone_num')
         )
+
 class Message_Form(forms.ModelForm):
     class Meta:
         model = message

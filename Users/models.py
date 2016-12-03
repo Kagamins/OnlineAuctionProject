@@ -7,7 +7,7 @@ from django.conf import settings
 class User(models.Model):
     name = models.CharField(max_length=120)
     email = models.EmailField()
-    Phone_num = models.IntegerField(null=True,blank=True)
+    Phone_number = models.IntegerField(null=True,blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
     address = models.CharField(null=True,blank=True,max_length=64,help_text='Address')
     Date_Of_Birth = models.DateField(null=True,blank=True)
