@@ -125,7 +125,7 @@ def product_details(request, pk):
 
 def auction_details(request, pk):
     obj = get_object_or_404(live_auction, pk=pk)
-    obj_d = get_object_or_404(auction,id=obj.auction_id )
+    obj_d = get_object_or_404(auction, id=obj.auction_id)
     bids = bid.objects.filter(l_auction_id=obj.auction_id)
     return render(request, 'auctiondetail.html', {'auction': obj, 'bidders': bids})
 
@@ -153,6 +153,16 @@ def index_page(request):
                       {'auction': obj,
                        'p_auction': premium_obj,
                        'product': queryset})
+
+
+def index_car_filter(request):
+    obj = item.objects.filter(product_type='C')
+    return render(request, 'Index_Car.html', {'product': obj, 'item_search': obj})
+
+
+def index_part_filter(request):
+    obj = item.objects.filter(product_type='P')
+    return render(request, 'Index_Part.html', {'product': obj, 'item_search': obj})
 
 
 @login_required

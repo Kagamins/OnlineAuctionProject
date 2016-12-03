@@ -19,7 +19,7 @@ class SignupForm(forms.ModelForm):
             user=user,
             name=user.username,
             email=user.email,
-            Phone_num= self.cleaned_data.get('Phone_num')
+            Phone_number= self.cleaned_data.get('Phone_number')
         )
 
 class Message_Form(forms.ModelForm):

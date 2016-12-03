@@ -40,11 +40,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-{% block media  %} {{ form.media }} {% endblock %}
+{% block media  %} {% endblock %}
 </head>
 <style>
 .dropbtn {
-    background-color: #808080;
+    background-color: #122b40;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -60,7 +60,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #FFF;
+    background-color: #FFFFFF;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -72,14 +72,14 @@
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #FFFF00}
+.dropdown-content a:hover {background-color: #d0e9c6}
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #808080;
+    background-color: #337ab7;
 }
 </style>
 
@@ -122,8 +122,8 @@
                 <div class="dropdown">
                   <button class="dropbtn">Category</button>
                   <div class="dropdown-content">
-                    <a href="">Car</a>
-                    <a href="">Parts</a>
+                    <a href="{% url 'car_filter' %}">Car</a>
+                    <a href="{% url 'part_filter' %}">Parts</a>
                     </div>
                 </div>
                 <div class="dropdown">
