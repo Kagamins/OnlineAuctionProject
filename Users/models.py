@@ -9,7 +9,8 @@ class User(models.Model):
     email = models.EmailField()
     Phone_num = models.IntegerField(null=True,blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
-
+    address = models.CharField(null=True,blank=True,max_length=64,help_text='Address')
+    Date_Of_Birth = models.DateField(null=True,blank=True)
     def get_absolute_url(self):
         return reverse('home', kwargs={'pk': self.pk})
 
@@ -19,6 +20,7 @@ class User(models.Model):
 
     def __str__(self):
         return "{} : {}".format(self.name, self.pk)
+
 class message(models.Model):
     sender = models.ForeignKey(User, related_name='Sender',)
     receiver = models.ForeignKey(User, related_name='Receiver')
