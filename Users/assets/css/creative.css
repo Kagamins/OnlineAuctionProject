@@ -193,6 +193,18 @@ header .header-content {
     text-align: center;
 }
 
+header .header-content .header-content-inner input {
+    position: relative;
+    width: 70%;
+    color:#375584;
+    text-align: center;
+}
+
+header {
+  max-height: 750px;
+  max-width: 750px;
+}
+
 header .header-content .header-content-inner h1 {
     margin-top: 0;
     margin-bottom: 0;

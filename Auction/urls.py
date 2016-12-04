@@ -4,6 +4,7 @@ from Auction import views
 from django.views.generic import ListView
 
 urlpatterns = [
+    url(r'^view/mypage/$', views.my_page, name='My_Page',),
     url(r'^create/$', views.createAuction, name='Create_Auction',),
     url(r'^create/product/$', views.create_product, name='Create_Product',),
     url(r'^edit/product/(?P<pk>\d+)$', views.edit_product, name='Edit_Product',),

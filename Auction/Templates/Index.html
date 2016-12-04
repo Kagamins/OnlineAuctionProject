@@ -1,5 +1,9 @@
-{% extends "Base.html"%} {% block content %} {% if p_auction%}
+{% extends "Base.html"%} {% block content %}
+<span  style="font-size:30px;cursor:pointer" onclick="openmNav()">&#9776; </span>
+
+{% if p_auction%}
 <h2>Premium Auctions<h2>
+
 <div class='list-group'>
   {% for a in p_auction %}
 
@@ -15,10 +19,11 @@
       no  Premium Auctions
       </h2> {% endfor %}
 </div>
+
 {%else%}
 <h2>
     no  Premium Auctions
-    </h2> {%endif%} 
+    </h2> {%endif%}
 <h2>Auctions Available</h2> {% if request.method == 'POST' %}
 <div class='list-group'>
     {% for a in auction %}
@@ -55,7 +60,7 @@
     {%endif%} {% empty %}
 
     <h2>
-no  items search found
+no  product search found
 </h2> {% endfor %}
 </div>
 {%endif%} {%else%} {%if auction%}
@@ -73,7 +78,8 @@ no  items search found
     no  Auctions
     </h2> {% endfor %}
 </div>
-{%endif%} {%if product%}
+{%endif%}
+{%if product%}
 <h2>Products Available </h2>
 <div class='list-group'>
     {% for p in product %}
@@ -92,4 +98,28 @@ no  items search found
     <a href="{% url 'product_delete' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
 
     {%endif%} {% endfor %} {%endif%}
-</div>{%endif%} {% endblock %}
+
+</div>{%endif%}
+{% if product.has_other_pages %}
+<ul class="pagination">
+  {% if product.has_previous %}
+    <li><a href="?page={{ product.previous_page_number }}">&laquo;</a></li>
+  {% else %}
+    <li class="disabled"><span>&laquo;</span></li>
+  {% endif %}
+  {% for i in product.paginator.page_range %}
+    {% if product.number == i %}
+      <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+    {% else %}
+      <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+  {% endfor %}
+  {% if product.has_next %}
+    <li><a href="?page={{ product.next_page_number }}">&raquo;</a></li>
+  {% else %}
+    <li class="disabled"><span>&raquo;</span></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+{% endblock %}

@@ -22,8 +22,8 @@ class User(models.Model):
         return "{} : {}".format(self.name, self.pk)
 
 class message(models.Model):
-    sender = models.ForeignKey(User, related_name='Sender',)
-    receiver = models.ForeignKey(User, related_name='Receiver')
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Sender',)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='Receiver')
     subject = models.CharField(max_length=64,blank=True,null=True)
     body = models.TextField(max_length=400,null=True)
     date_time_sent = models.DateTimeField(auto_now=True)

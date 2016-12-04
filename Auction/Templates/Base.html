@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  </script>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,6 +44,49 @@
 {% block media  %} {% endblock %}
 </head>
 <style>
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 160px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 .dropbtn {
     background-color: #122b40;
     color: white;
@@ -101,14 +145,7 @@
             </div>
             <form action="/" method="post" class="form-inline">
   {% if user.is_authenticated %}
-              <div class="dropdown">
-              <button class="dropbtn">Actions</button>
-                <div class="dropdown-content">
-                <a href="{% url 'Create_Auction' %}">Add Auction </a>
-                <a href="{% url 'Create_Product' %}">Add Product </a>
-                <a href="{% url 'account_logout' %}">Sign out </a>
-                </div>
-            </div>
+  <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
     {%else%}
     <div class="dropdown">
     <button class="dropbtn">New </button>
@@ -119,6 +156,7 @@
   </div>
 
     {%endif%}
+
                 <div class="dropdown">
                   <button class="dropbtn">Category</button>
                   <div class="dropdown-content">
@@ -140,32 +178,52 @@
           </form>
         </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
+            <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("header-content-inner").style.marginLeft = "250px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("header-content-inner").style.marginLeft= "0";
+            }
+            </script>
+
+            <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a href="{% url 'My_Page' %}">My page </a>
+            <a href="{% url 'Create_Auction' %}">Add Auction </a>
+            <a href="{% url 'Create_Product' %}">Add Product </a>
+            <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span>  </a>
+            <a href="{% url 'account_logout' %}">Sign out </a>
+
+            </div>
 
 
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert{% if message.tags %} {{ message.tags}}{% endif %} .alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-            </button>
-                    {{ message }}
-               </div>
-               {% endfor %}
-            {% endif %}
 
     <header>
         <div class="header-content">
-            <div class="header-content-inner">
+            <div id="main" class="header-content-inner">
 
                 <p>
                     {% block content %}
                     {% endblock %}
                 </p>
-
             </div>
         </div>
     </header>
 
 
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert{% if message.tags %} {{ message.tags}}{% endif %} .alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+            {{ message }}
+       </div>
+       {% endfor %}
+    {% endif %}
 
 
 

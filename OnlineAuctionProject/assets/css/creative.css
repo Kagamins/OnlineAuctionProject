@@ -394,8 +394,23 @@ fieldset[disabled] .btn-default.active {
     transition: all .35s;
 }
 header .header-content {
-  padding-top: 250px;
+  padding-top: 175px;
 }
+header .header-content .header-content-inner .list-group-item.pagintation{
+  display: inline-block;
+   padding: 0;
+   margin: 0;
+}
+header .header-content .header-content-inner .list-group-item.pagintation
+   {display: inline;}
+   header .header-content .header-content-inner .list-group-item.pagintation{
+    color: black;
+   float: left;
+   padding: 8px 16px;
+   text-decoration: underline;
+   }
+
+
 header .header-content .header-content-inner .list-group-item{
   opacity: .7;
   padding: 20px;

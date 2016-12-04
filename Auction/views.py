@@ -9,7 +9,19 @@ from django.views.generic.edit import *
 from django.db.models import *
 from .forms import *
 from .models import *
+from Users.models import message
 from django.core.paginator import *
+
+
+@login_required
+def my_page(request):
+    my_messages = message.objects.filter(receiver=request.user)
+    my_products = item.objects.filter(owner=request.user)
+    my_auctions = auction.objects.filter(user=request.user)
+    my_live_auctions = live_auction.objects.filter(
+        owner=request.user)
+
+    return render(request, 'my_page.html', {'messages': my_messages, 'products': my_products, 'auctions': my_auctions,'live_auctions': my_live_auctions})
 
 
 @login_required
@@ -125,20 +137,24 @@ def product_details(request, pk):
 
 def auction_details(request, pk):
     obj = get_object_or_404(live_auction, pk=pk)
-    obj_d = get_object_or_404(auction, id=obj.auction_id)
+    obj_d = get_object_or_404(auction, pk=obj.auction_id)
     bids = bid.objects.filter(l_auction_id=obj.auction_id)
-    return render(request, 'auctiondetail.html', {'auction': obj, 'bidders': bids})
+    return render(request, 'auctiondetail.html', {'auction': obj_d, 'bidders': bids})
 
 
 def index_page(request):
     obj = live_auction.objects.all().order_by('-id')
     premium_obj = live_auction.objects.filter(
-        auction__auction_type=('P', 'Premium'))
+        auction__auction_type='P')
     queryset = item.objects.all()
-    paginator = Paginator(queryset, 5)
+    paginator = Paginator(queryset, 2)
     page = request.GET.get('page')
-    # for o in queryset:
-    #    queryset_dict[o.product_name] = [o.manufacture_year,o.product_description,o.picture];
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
 
     if request.method == 'POST':
         qs = item.objects.filter(
@@ -146,23 +162,41 @@ def index_page(request):
         return render(request, 'Index.html',
                       {'auction': obj,
                        'p_auction': premium_obj,
-                       'product': queryset,
+                       'product': items,
                        'item_search': qs})
     else:
         return render(request, 'Index.html',
                       {'auction': obj,
                        'p_auction': premium_obj,
-                       'product': queryset})
+                       'product': items})
 
 
 def index_car_filter(request):
     obj = item.objects.filter(product_type='C')
-    return render(request, 'Index_Car.html', {'product': obj, 'item_search': obj})
+    paginator = Paginator(obj, 2)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    return render(request, 'Index_Car.html', {'product': obj})
 
 
 def index_part_filter(request):
     obj = item.objects.filter(product_type='P')
-    return render(request, 'Index_Part.html', {'product': obj, 'item_search': obj})
+    paginator = Paginator(obj, 1)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    return render(request, 'Index_Part.html', {'product': items})
 
 
 @login_required

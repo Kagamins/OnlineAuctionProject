@@ -52,6 +52,7 @@ class auction(models.Model):
 
 
 class live_auction(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True)
     auction = models.ForeignKey(auction)
     Time_of_Auction = models.TimeField(null=True)
     #Live = models.BooleanField(NullBooleanField=True)
