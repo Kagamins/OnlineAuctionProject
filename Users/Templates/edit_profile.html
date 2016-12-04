@@ -1,5 +1,5 @@
-{% extends "Base.html" %} {% block content %}
-<form method="post" action="{% url 'Edit_User' user.pk %}">
+{% extends "Base.html" %} {%block media%}{{form.media}} {%endblock%}{% block content %}
+<form method="post" action="{% url 'Edit_User' %}">
   {% csrf_token %} {{ form.as_p }}
 
   <input class="btn btn-default btn-primary" type="submit" value="Done">

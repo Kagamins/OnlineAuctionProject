@@ -30,3 +30,11 @@ class Message_Form(forms.ModelForm):
         'sender' : forms.HiddenInput,
         'date_time_sent' : forms.HiddenInput,
         }
+class EditUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ['user',]
+        widgets = {
+                'Date_Of_Birth' : DateWidget(bootstrap_version=3),
+
+        }

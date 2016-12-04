@@ -146,6 +146,16 @@
             <form action="/" method="post" class="form-inline">
   {% if user.is_authenticated %}
   <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="{% url 'My_Page' %}">My page </a>
+  <a href="{% url 'Create_Auction' %}">Add Auction </a>
+  <a href="{% url 'Create_Product' %}">Add Product </a>
+  <a href="{%url 'Edit_User' %}"> Edit Profile</a>
+  <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span>  </a>
+  <a href="{% url 'account_logout' %}">Sign out </a>
+
+  </div>
     {%else%}
     <div class="dropdown">
     <button class="dropbtn">New </button>
@@ -190,15 +200,7 @@
             }
             </script>
 
-            <div id="mySidenav" class="sidenav">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-              <a href="{% url 'My_Page' %}">My page </a>
-            <a href="{% url 'Create_Auction' %}">Add Auction </a>
-            <a href="{% url 'Create_Product' %}">Add Product </a>
-            <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span>  </a>
-            <a href="{% url 'account_logout' %}">Sign out </a>
 
-            </div>
 
 
 

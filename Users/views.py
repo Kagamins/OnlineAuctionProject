@@ -26,6 +26,24 @@ class Edit_User(UpdateView):
     context_object_name = 'user'
     exclude = ['user', ]
     template_name = 'edit_profile.html'
+    
+@login_required
+def edit_profile(request):
+    obj = User.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+        form = EditUserProfileForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+
+            return redirect('home')
+    else:
+        form = EditUserProfileForm(instance=obj)
+    return render(request,
+                  'edit_profile.html',
+                  {
+                      'user': obj,
+                      'form': form,
+                  })
 
 
 @login_required
