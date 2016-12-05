@@ -55,7 +55,7 @@ class live_auction(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True)
     auction = models.ForeignKey(auction)
     Time_of_Auction = models.TimeField(null=True)
-    #Live = models.BooleanField(NullBooleanField=True)
+    auction_bidding_open = models.BooleanField(default=False)
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
     def __str__(self):

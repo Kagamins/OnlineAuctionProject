@@ -13,7 +13,7 @@
     <p class="list-group-item-text">Time of Auction :{{auction.auction_time}}</p>
 
 </div>
-<a class="btn btn-default btn-primary"  href="{% url 'Bid_Auction' auction.pk %}"> <span class = 'glyphicon glyphicon-edit'></span></a>
+<a class="btn btn-default btn-primary"  href="{% url 'Bid_Auction' %}"> <span class = 'glyphicon glyphicon-edit'></span></a>
 <a class="btn btn-default btn-primary"  href="{% url 'Create_Message' %}"><span class="glyphicon glyphicon-envelope"></span> </a>
 
 <a class="btn btn-default btn-primary"  href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span>  </a>
@@ -26,5 +26,8 @@
         <p class="list-group-item-text">{{b.User_bid}}</p>
     </a>
 </div>
+{% if b.Bidder == request.user%}
+<a class="btn btn-primary "href="{% url 'Update_Bid_Auction' b.pk %}"> <span class = 'glyphicon glyphicon-edit'></span> </a>
+{% endif %}
 {%endfor%}
 {% endblock %}

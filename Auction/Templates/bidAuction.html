@@ -15,7 +15,7 @@
 {%endfor%}
 {%else%}--->
 
-<form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
+<form method="post" action="{% url 'Bid_Auction' %}">
     {% csrf_token %} {{ form.as_table }}
     <input class="btn btn-default btn-primary" type="submit" value="Done!">
 </form>

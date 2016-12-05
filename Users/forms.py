@@ -8,7 +8,7 @@ class SignupForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
         'user' : forms.HiddenInput,
-        'Date_Of_Birth' : DateWidget(bootstrap_version=3),
+    
 
         }
     # university_id = forms.CharField(required=False)

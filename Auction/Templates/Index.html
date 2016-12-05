@@ -11,7 +11,7 @@
           <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
   </a>
   <a  class="btn btn-default btn-primary" href="{% url 'View_Auction' a.auction.pk %}">  <span class = " glyphicon glyphicon-eye-open">  </span></a>
-  <a  class="btn btn-default btn-primary" href="{% url 'Bid_Auction' a.auction.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
+  <a  class="btn btn-default btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
   {% empty %}
 
   <h2>
@@ -26,6 +26,7 @@
 <h2>Auctions Available</h2> {% if request.method == 'POST' %}
 <div class='list-group'>
     {% for a in auction %}
+    {%if a.auction_bidding_open %}
 
     <a href="{% url 'View_Auction' a.auction.pk %}" class='list-group-item'>
         <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
@@ -34,8 +35,9 @@
     </a>
     <a class="btn btn-default btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
 
-    <a class="btn btn-default btn-primary" href="{% url 'Bid_Auction' a.auction.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span></a> {% empty %}
-
+    <a class="btn btn-default btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
+{% endif %}
+{% empty %}
     <h2>
     no  Auctions
     </h2> {% endfor %}
@@ -71,7 +73,7 @@ no  product search found
         <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
     </a>
     <a class="btn btn-default btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
-    <a class="btn btn-default btn-primary" href="{% url 'Bid_Auction' a.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span> </a> {% empty %}
+    <a class="btn btn-default btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span> </a> {% empty %}
 
     <h2>
     no  Auctions

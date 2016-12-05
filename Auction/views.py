@@ -11,6 +11,8 @@ from .forms import *
 from .models import *
 from Users.models import message
 from django.core.paginator import *
+from django import forms
+
 
 
 @login_required
@@ -57,49 +59,59 @@ class Edit_Auction(UpdateView):
     fields = '__all__'
     context_object_name = 'auction'
     template_name = 'editAuction.html'
+    widgets = {
+    'user' : forms.HiddenInput,
+    'auction_date' : DateWidget(bootstrap_version=3),
+    'auction_time' : TimeWidget(bootstrap_version=3)
 
+    }
 
 @login_required
-def bid_auction(request, pk):
-    auction = get_object_or_404(live_auction, pk=pk)
-    bidders = bid.objects.filter(l_auction_id=pk)
+def edit_auction(request,pk):
+    auction = get_object_or_404(auction,pk=pk)
+    if request.method =='POST':
+        form = newAuctionForm(request.POST, instance=auction)
+        if form.is_Valid():
+            form.save()
+            return HttpResponseRedirect('success')
+    else:
+        form = newAuctionForm(instance=auction)
+        return render (request,'editAuction.html',{'form':form, 'auction' : auction})
+
+@login_required
+def bid_auction(request):
     if request.method == 'POST':
-        form = newBidForm(request.POST, instance=auction)
+        form = newBidForm(request.POST)
         if form.is_valid():
             print('form is valid :D')
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
         form = newBidForm(
-            initial={'l_auction': auction, 'Bidder': request.user})
-    return render(request, 'bidAuction.html', {'form': form, 'live_auction': auction, 'bids': bidders})
+            initial={'Bidder': request.user})
+    return render(request, 'bidAuction.html', {'form': form})
 
 
 @login_required
 def update_bid_auction(request, pk):
-    auction = get_object_or_404(live_auction, pk=pk)
-    bidders = bid.objects.filter(l_auction_id=pk)
+    bid = get_object_or_404(bid,pk=pk)
     if request.method == 'POST':
-        form = newBidForm(request.POST, instance=auction)
+        form = newBidForm(request.POST, instance=bid)
         if form.is_valid():
             print('form is valid :D')
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
-        form = newBidForm(
-            initial={'l_auction': auction, 'Bidder': request.user})
-    return render(request, 'bidAuction.html', {'form': form, 'live_auction': auction, 'bids': bidders})
+        form = newBidForm(instance=bid)
+    return render(request, 'update_bidAuction.html', {'form': form,'bid':bid})
 
 
 class Bid_Auction(UpdateView):
     model = bid
     login_required = True
     fields = ['User_bid', 'l_auction']
-    context_object_name = 'live_auction'
-    template_name = 'bidAuction.html'
-
-    def get_queryset(self):
-        return bid.objects.filter(l_auction=self.kwargs['pk'])
+    context_object_name = 'bid'
+    template_name = 'update_bidAuction.html'
 
 
 class Create_Product(FormView):

@@ -15,8 +15,8 @@ urlpatterns = [
     url(r'^view/product/(?P<pk>\d+)$', views.product_details, name='product_details',),
     url(r'^pay/$', views.payment_page, name='payment_page',),
     url(r'^delete/product/(?P<pk>\d+)$', views.delete_product, name='product_delete',),
-    url(r'^bid/(?P<pk>\d+)$',
-        views.Bid_Auction.as_view(), name='Bid_Auction',),
-    url(r'^bid/(?P<pk>\d+)$',
-        views.update_bid_auction, name='Update_Bid_Auction',),
+    url(r'^bid/$',
+        views.bid_auction, name='Bid_Auction',),
+    url(r'^bid/update/(?P<pk>\d+)$',
+        views.Bid_Auction.as_view(), name='Update_Bid_Auction',),
 ]

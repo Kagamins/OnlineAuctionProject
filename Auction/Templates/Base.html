@@ -92,6 +92,15 @@ form span{
   color: #bb0ad6;
 }
 
+form input{
+  color:black;
+}
+table{
+  color:white;
+}
+form label {
+  color: #a98cad;
+}
 .dropbtn {
     background-color: #bb0ad6;
     color: white;
@@ -158,7 +167,8 @@ form span{
   <a href="{% url 'Create_Product' %}">Add Product </a>
   <a href="{%url 'Edit_User' %}"> Edit Profile</a>
   <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span>  </a>
-  <a href="{% url 'account_logout' %}">Sign out </a>
+  <a href="{% url 'account_logout' %}">Sign out <span class='glyphicon glyphicon-off '></span></a>
+  <a href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span>  </a>
 
   </div>
     {%else%}
@@ -187,7 +197,7 @@ form span{
                   </div>
                 </div>
                 {% csrf_token %}
-                <input type="text" class="form-control input-sm" placeholder="search input" name="term" size="30"> <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
+                <input type="text" class="form-control input-sm" placeholder="search input" name="term" size="30"> <button id="S-mark" type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
 
             </nav>
           </form>
