@@ -60,7 +60,7 @@
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 19px;
     color: #818181;
     display: block;
     transition: 0.3s
@@ -87,8 +87,13 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+
+form span{
+  color: #bb0ad6;
+}
+
 .dropbtn {
-    background-color: #122b40;
+    background-color: #bb0ad6;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -123,7 +128,7 @@
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #337ab7;
+    background-color: #122b40;
 }
 </style>
 
@@ -147,8 +152,8 @@
   {% if user.is_authenticated %}
   <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
   <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="{% url 'My_Page' %}">My page </a>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="{% url 'My_Page' %}">My page </a>
   <a href="{% url 'Create_Auction' %}">Add Auction </a>
   <a href="{% url 'Create_Product' %}">Add Product </a>
   <a href="{%url 'Edit_User' %}"> Edit Profile</a>
@@ -157,13 +162,13 @@
 
   </div>
     {%else%}
-    <div class="dropdown">
-    <button class="dropbtn">New </button>
-      <div class="dropdown-content">
+    <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <li><a href="{% url 'account_login' %}"> Sign In </a></li>
         <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
       </div>
-  </div>
+
 
     {%endif%}
 
