@@ -1,0 +1,7 @@
+{% extends "Base.html"%}{% block content %}
+<form method="post" action="{% url 'Create_Product' %}">
+  {% csrf_token %}
+    {{ form.as_ul }}
+<input class="btn btn-default btn-primary" type="submit" value="Done">
+</form>
+{% endblock %}
