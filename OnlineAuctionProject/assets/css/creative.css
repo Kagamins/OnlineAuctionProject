@@ -136,7 +136,7 @@ Side Navigation
 .sidenav b.imgdescription{
   color: #818181;
   visibility: hidden;
-  font-size: 19px;
+  font-size: 12px;
   opacity: 0;
   -webkit-transition: visibility opacity 0.2s;
 
@@ -309,6 +309,7 @@ header {
     color: ##333942;
     background-image: url(../img/header.jpg);
     background-position: center;
+    background-repeat: repeat-y;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -462,8 +463,8 @@ header .header-content .header-content-inner p {
 }
 
 .btn-default {
-    border-color: #ac2925;
-    color: #222;
+    border-color: white;
+    color: black;
     background-color: #ac2925;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
@@ -477,10 +478,13 @@ header .header-content .header-content-inner p {
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
     border-color: #ac2925;
-    color: #222;
-    background-color: #ac2925;
+    color: white;
+    background-color: black;
 }
-
+button {
+  color:black;
+  background-color: white;
+}
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
@@ -517,13 +521,33 @@ fieldset[disabled] .btn-default.active {
 .btn-primary {
     border-color:#ac2925;
     color:  black;
-    background-color:#4286f4;
+    background-color:silver;
     border-image-repeat: no-repeat;
     background-repeat: no-repeat;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
 }
+
+.btn-primary:hover a.btn_description{
+    opacity: 1;
+    border-color:#ac2925;
+    color:  silver;
+    background-color:black;
+    border-image-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+    max-width: 150px;
+    transition: max-width 1s ease-out .1s, opacity 1s ease-out .1s, color .2s;
+}
+.btn_description{
+         max-width: 0;
+         display: inline-block;
+         text-decoration: none;  opacity: 0;
+}
+
 header .header-content {
   padding-top: 175px;
 }
@@ -553,6 +577,16 @@ display: inline-grid;
   padding: 20px;
   color: white;
   background-color: #535456;
+}
+
+header .header-content .header-content-inner a .btn.btn-primary{
+  color: white;
+  background-color: #535456;
+}
+
+header .header-content .header-content-inner a .btn.btn-primary:hover{
+  color: white;
+  background-color: grey;
 }
 header .header-content .header-content-inner .list-group-item .list-group-item-heading{
   color: white;

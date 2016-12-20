@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  </script>
+    </script>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,8 +41,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-{% block media  %} {% endblock %}
+    {% block media %} {% endblock %}
 </head>
+
 <body id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -53,61 +54,80 @@
 
             </div>
             <form action="/" method="post" class="form-inline">
-  {% if user.is_authenticated %}
-  <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-  <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="{% url 'My_Page' %}"><span class="glyphicon glyphicon-book"></span><b class="imgdescription">My Page </b></a>
-  <a href="{% url 'Create_Auction' %}"><span class="glyphicon glyphicon-scale"></span><b class="imgdescription">Add Auction </b></a>
-  <a href="{% url 'Create_Product' %}"><span class="glyphicon glyphicon-plus-sign"></span><b class="imgdescription">Add Product </b></a>
-  <a href="{%url 'Edit_User' %}"> <span class="glyphicon glyphicon-wrench"></span><b class="imgdescription">Edit Profile</b></a>
-  <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span> </span><b class="imgdescription">Send Message </b> </a>
-  <a href="{% url 'account_logout' %}"><span class='glyphicon glyphicon-off '></span><b class="imgdescription">Sign out </b></a>
-  <a href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span></span><b class="imgdescription">Home</b></a>
+                {% if user.is_authenticated %}
+                <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="{% url 'My_Page' %}"><span class="glyphicon glyphicon-book"></span><b class="imgdescription">My Page </b></a>
+                    <a href="{% url 'Create_Auction' %}"><span class="glyphicon glyphicon-scale"></span><b class="imgdescription">Add Auction </b></a>
+                    <a href="{% url 'Create_Product' %}"><span class="glyphicon glyphicon-plus-sign"></span><b class="imgdescription">Add Product </b></a>
+                    <a href="{%url 'Edit_User' %}"> <span class="glyphicon glyphicon-wrench"></span><b class="imgdescription">Edit Profile</b></a>
+                    <a href="{% url 'Create_Message' %}"> <span class="glyphicon glyphicon-envelope"></span> </span><b class="imgdescription">Send Message </b> </a>
+                    <a href="{% url 'account_logout' %}"><span class='glyphicon glyphicon-off '></span><b class="imgdescription">Sign out </b></a>
+                    <a href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span></span><b class="imgdescription">Home</b></a>
 
-  </div>
-    {%else%}
-    <span  style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-    <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <li><a href="{% url 'account_login' %}"> Sign In </a></li>
-        <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
-      </div>
+                </div>
+                {%else%}
+                <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <li><a href="{% url 'account_login' %}"> Sign In </a></li>
+                    <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
+                </div>
 
 
-    {%endif%}
+                {%endif%}
 
                 <div class="dropdown">
-                  <button class="dropbtn">Category</button>
-                  <div class="dropdown-content">
-                    <a href="{% url 'car_filter' %}">Car</a>
-                    <a href="{% url 'part_filter' %}">Parts</a>
+                    <button class="dropbtn">Category</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'car_filter' %}">Car</a>
+                        <a href="{% url 'part_filter' %}">Parts</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                  <button class="dropbtn">Contact Us</button>
-                  <div class="dropdown-content">
-                      <a href=""> Support </a>
+                    <button class="dropbtn">Contact Us</button>
+                    <div class="dropdown-content">
+                        <a href=""> Support </a>
 
-                  </div>
+                    </div>
                 </div>
                 {% csrf_token %}
                 <input type="text" class="form-control input-sm" placeholder="search input" name="term" size="30"> <button id="S-mark" type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
 
-            </nav>
-          </form>
-        </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "125px";
+    </nav>
+    </form>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "125px";
+
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+        $('#button').hover(
+            function() {
+                $(this).animate({
+                    width: '70px',
+                }, 1000)
+                $('#button-text').animate({
+                    width: '70px',
+                }, 1000)
+            },
+            function() {
+                $(this).animate({
+                    width: '11px',
+                }, 1000)
+                $('#button-text').animate({
+                    width: '0px',
+                }, 1000)
 
             }
-
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-            </script>
+        );
+    </script>
 
 
 
@@ -118,23 +138,19 @@
             <div id="main" class="header-content-inner">
 
                 <p>
-                    {% block content %}
-                    {% endblock %}
+                    {% block content %} {% endblock %}
                 </p>
             </div>
         </div>
     </header>
 
 
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert{% if message.tags %} {{ message.tags}}{% endif %} .alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
-    </button>
-            {{ message }}
-       </div>
-       {% endfor %}
-    {% endif %}
+    {% if messages %} {% for message in messages %}
+    <div class="alert{% if message.tags %} {{ message.tags}}{% endif %} .alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button> {{ message }}
+    </div>
+    {% endfor %} {% endif %}
 
 
 
