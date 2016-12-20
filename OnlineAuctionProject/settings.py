@@ -51,8 +51,12 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
     'datetimewidget',
+<<<<<<< HEAD
     'user_group',
     'Support'
+=======
+    'user_group'
+>>>>>>> d450c2d1f5fad0f90fdf13017ecc52da0837aa3e
 
 
 )
