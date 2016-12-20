@@ -53,6 +53,9 @@ header .header-content .header-content-inner h2{
 
 
 }
+header .header-content .header-content-inner .btn-primary{
+  display: inline-block;
+}
 p {
     margin-bottom: 20px;
     font-size: 16px;
@@ -92,7 +95,125 @@ aside {
     -moz-transition: all .35s;
     transition: all .35s;
 }
+/*
+Side Navigation
+*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 160px;
+}
 
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 19px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover b.imgdescription, .offcanvas a:focus,
+.sidenav a:hover span{
+    color: #f1f1f1;
+    visibility: visible;
+    opacity: 1;
+
+}
+.sidenav span:hover b.imgdescription,
+.sidenav span:hover{
+  visibility: visible;
+  opacity: 1;
+  color: white;
+}
+.sidenav b.imgdescription{
+  color: #818181;
+  visibility: hidden;
+  font-size: 19px;
+  opacity: 0;
+  -webkit-transition: visibility opacity 0.2s;
+
+}
+.sidenav .closebtn {
+
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/*
+form span{
+  color: #bb0ad6;
+}
+*/
+form input{
+  color:black;
+}
+table{
+  color:white;
+}
+form label {
+  color: #a98cad;
+}
+.dropbtn {
+    background-color: #bb0ad6;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #d0e9c6}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #122b40;
+}
+
+/*
+End of side navigation styles
+*/
 .navbar-default .navbar-header .navbar-brand {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -397,6 +518,8 @@ fieldset[disabled] .btn-default.active {
     border-color:#ac2925;
     color:  black;
     background-color:#4286f4;
+    border-image-repeat: no-repeat;
+    background-repeat: no-repeat;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -405,7 +528,7 @@ header .header-content {
   padding-top: 175px;
 }
 header .header-content .header-content-inner .list-group-item.pagintation{
-  display: inline-block;
+  display: grid;
    padding: 0;
    margin: 0;
 }
@@ -426,6 +549,7 @@ header .header-content .header-content-inner .list-group-item.pagintation{
 
 
 header .header-content .header-content-inner .list-group-item{
+display: inline-grid;
   padding: 20px;
   color: white;
   background-color: #535456;
@@ -436,7 +560,7 @@ header .header-content .header-content-inner .list-group-item .list-group-item-h
 header .header-content .header-content-inner .list-group-item .list-group-item-text{
   color: white;
 }
-.btn-primary:hover,
+.btn-primary:hover .imgdescription,
 .btn-primary:focus,
 .btn-primary.focus,
 .btn-primary:active,
@@ -445,6 +569,8 @@ header .header-content .header-content-inner .list-group-item .list-group-item-t
     border-color: #ed431f;
     color: black;
     background-color: #afc7ed;
+    visibility: visible;
+    opacity: 1;
 }
 
 .btn-primary:active,
@@ -482,11 +608,18 @@ fieldset[disabled] .btn-primary.active {
 
 .btn {
     border: 0;
-    border-radius: 300px;
+    border-radius: 30px;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
 }
+.imgdescription{
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility opacity 0.2s;
+
+}
+
 
 .btn-xl {
     padding: 15px 30px;
