@@ -57,7 +57,6 @@
                 {% if user.is_authenticated %}
                 <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
                 <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="{% url 'My_Page' %}"><span class="glyphicon glyphicon-book"></span><b class="imgdescription">My Page </b></a>
                     <a href="{% url 'Create_Auction' %}"><span class="glyphicon glyphicon-scale"></span><b class="imgdescription">Add Auction </b></a>
                     <a href="{% url 'Create_Product' %}"><span class="glyphicon glyphicon-plus-sign"></span><b class="imgdescription">Add Product </b></a>
@@ -70,7 +69,6 @@
                 {%else%}
                 <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
                 <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <li><a href="{% url 'account_login' %}"> Sign In </a></li>
                     <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
                 </div>
@@ -88,7 +86,7 @@
                 <div class="dropdown">
                     <button class="dropbtn">Contact Us</button>
                     <div class="dropdown-content">
-                        <a href=""> Support </a>
+                        <a href="{% url 'Support' %}"> Support </a>
 
                     </div>
                 </div>
@@ -100,14 +98,20 @@
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <script>
+    var open_sidenav = false;
         function openNav() {
+          if(!open_sidenav){
             document.getElementById("mySidenav").style.width = "125px";
+            open_sidenav= true;
+}
+else{
+  document.getElementById("mySidenav").style.width = "0";
+  open_sidenav= false;
 
+}
         }
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
+
         $('#button').hover(
             function() {
                 $(this).animate({

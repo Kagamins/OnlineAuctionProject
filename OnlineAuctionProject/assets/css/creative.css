@@ -95,9 +95,70 @@ aside {
     -moz-transition: all .35s;
     transition: all .35s;
 }
+
+/*
+Support Page
+*/
+header.header-content.header-content-inner a:hover b.imgdescription, .offcanvas a:focus,
+header.header-content.header-content-inner a:hover span{
+    color: #f1f1f1;
+    visibility: visible;
+    opacity: 1;
+
+}
+header.header-content.header-content-inner span:hover b.imgdescription,
+header.header-content.header-content-inner span:hover{
+  visibility: visible;
+  opacity: 1;
+  color: white;
+}
+header.header-content.header-content-inner b.imgdescription{
+  color: #818181;
+  visibility: hidden;
+  font-size: 12px;
+  opacity: 0;
+  -webkit-transition: visibility opacity 0.2s;
+
+}
+
 /*
 Side Navigation
 */
+
+.back-to-top {
+
+background: none;
+
+margin: 0;
+
+position: relative;
+bottom: 0;
+
+right: 0;
+
+width: 70px;
+
+height: 70px;
+
+z-index: 100;
+
+display: none;
+
+text-decoration: none;
+
+color: #ffffff;
+background-color: #ff9000;
+
+}
+
+
+
+.back-to-top i {
+
+ font-size: 60px;
+
+}
+
 .sidenav {
     height: 100%;
     width: 0;

@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls',)),
     url(r'^auction/',include('Auction.urls',)),
     url(r'^User/',include('Users.urls',)),
+    url(r'^Support/',include('Support.urls',)),
     url(r'^',views.index_page,name='home',),
 ]
