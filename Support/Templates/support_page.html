@@ -1,0 +1,85 @@
+{% extends 'Base.html'%} {% block content %}
+<h2>Support Page</h2>
+<div class="form-inline">
+    <a class="btn btn-primary" onclick="OpenAccount()"><span class="glyphicon glyphicon-pushpin"></span><b class="imgdescreption"> Open Accounts FAQ</b></a>
+    <a class="btn btn-primary" onclick="OpenTransaction()"><span class="glyphicon glyphicon-usd"></span><b class="imgdescreption"> Open Transaction FAQ</b></a>
+    <a class="btn btn-primary" onclick="OpenTechnical()"><span class="glyphicon glyphicon-wrench"></span><b class="imgdescreption"> Open Technical FAQ</b></a>
+    <a href="{% url 'Create_ticket' %}" class="btn btn-primary"><span class="glyphicon glyphicon-earphone"></span><b class="imgdescreption"> Create Ticket</b></a>
+</div>
+<div id="FAQ" style="background-color:black; border-color:blue;">
+    <div id="Account_QA">
+        <h2>Account Related Questions</h2> {%for question in QAAS%}
+        <h3>{{question.question}}</h3>
+        <h4>{{question.answer}}</h4>
+        <h2>-----------------------------------------------</h2> {%endfor%}
+
+    </div>
+    <h3>=================================================</h3>
+
+    <div id="Technical_QA">
+        <h2>Technical Related Questions</h2> {%for question in QATS%}
+        <h3>{{question.question}}</h3>
+        <h4>{{question.answer}}</h4>
+        <h2>-----------------------------------------------</h2> {%endfor%}
+    </div>
+    <h3>=================================================</h3>
+
+    <div id="Transaction_QA">
+        <h2>Transaction Related Questions</h2> {%for question in QATrS%}
+        <h3>{{question.question}}</h3>
+        <h4>{{question.answer}}</h4>
+        <h2>-----------------------------------------------</h2> {%endfor%}
+    </div>
+</div>
+<a class="back-to-top" style="display: inline;" href="#"> <span class="glyphicon glyphicon-menu-up"></span></a>
+
+<script>
+    jQuery(document).ready(function() {
+
+        var offset = 250;
+
+        var duration = 300;
+
+        jQuery(window).scroll(function() {
+
+            if (jQuery(this).scrollTop() > offset) {
+
+                jQuery('.back-to-top').fadeIn(duration);
+
+            } else {
+
+                jQuery('.back-to-top').fadeOut(duration);
+
+            }
+
+        });
+
+
+
+        jQuery('.back-to-top').click(function(event) {
+
+            event.preventDefault();
+
+            jQuery('html, body').animate({
+                scrollTop: 0
+            }, duration);
+
+            return false;
+
+        })
+
+    });
+
+    function OpenAccount() {
+        window.location.hash = "#Account_QA";
+    }
+
+    function OpenTechnical() {
+        window.location.hash = '#Technical_QA';
+    }
+
+    function OpenTransaction() {
+        window.location.hash = '#Transaction_QA';
+    }
+</script>
+{% endblock %}
