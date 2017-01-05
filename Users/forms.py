@@ -8,7 +8,7 @@ class SignupForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
         'user' : forms.HiddenInput,
-    
+
 
         }
     # university_id = forms.CharField(required=False)
@@ -30,6 +30,17 @@ class Message_Form(forms.ModelForm):
         'sender' : forms.HiddenInput,
         'date_time_sent' : forms.HiddenInput,
         }
+
+class Message_Form_Auction(forms.ModelForm):
+    class Meta:
+        model = message
+        fields = '__all__'
+        widgets = {
+        'sender' : forms.HiddenInput,
+        'receiver' : forms.HiddenInput,
+        'date_time_sent' : forms.HiddenInput,
+        }
+
 class EditUserProfileForm(forms.ModelForm):
     class Meta:
         model = User

@@ -7,8 +7,7 @@
 
             <h4 class="list-group-item-heading">{{p.product_name}}</h4>
             <h4 class="list-group-item-text">{{p.product_description}}</h4>
-            <img src="{{MEDIA_URL}}{{p.picture}}"></img>
-
+            <img src="{{p.picture.url}}" class = "img-circle"height="200px"width="242px"></img>
         </a>
         <a href="{% url 'product_details' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-eye-open'> </span></a>
         {%if p.owner == request.user %}

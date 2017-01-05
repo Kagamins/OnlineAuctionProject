@@ -26,7 +26,7 @@ class Edit_User(UpdateView):
     context_object_name = 'user'
     exclude = ['user', ]
     template_name = 'edit_profile.html'
-    
+
 @login_required
 def edit_profile(request):
     obj = User.objects.get(user_id=request.user.id)
@@ -58,6 +58,17 @@ def create_message(request):
             initial={'sender': request.user})
     return render(request, 'create_message.html', {'form': form})
 
+def create_message_auction(request,pk):
+    obj = User.objects.get(user_id=pk)
+    if request.method == 'POST':
+        form = Message_Form_Auction(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = Message_Form_Auction(
+            initial={'sender': request.user,'receiver':obj})
+    return render(request, 'create_message_auction.html', {'form': form,'receiver':pk})
 
 @login_required
 def view_message_details(request):

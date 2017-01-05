@@ -48,7 +48,7 @@
 <div class='list-group'>
     {% for p in item_search %}
 
-    <a href="{% url 'product_details' p.pk %}" class='list-group-item'>
+    <a href="{% url 'product_details' p.pk %}" class='panel panel-success'>
 
         <h4 class="list-group-item-heading">{{p.product_name}} : {{p.manufacture_year}}</h4>
         <h4 class="list-group-item-text">{{p.product_description}}</h4>
@@ -91,7 +91,7 @@ no  product search found
         <h4 class="list-group-item-heading">{{p.product_name}}</h4>
         <h4 class="list-group-item-text">{{p.product_description}}</h4>
         {%if p.picture%}
-        <img src="{{p.picture.url}}" height="300px" width="450px"></img>
+        <img src="{{p.picture.url}}"  class = "img-circle"height="200px"width="242px"></img>
         {%endif%}
     </a>
     <a href="{% url 'product_details' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-eye-open'> </span></a>

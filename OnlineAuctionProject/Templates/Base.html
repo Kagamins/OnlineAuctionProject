@@ -63,12 +63,13 @@
 
                 </div>
                 {%else%}
+
                 <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
                 <div id="mySidenav" class="sidenav">
                     <li><a href="{% url 'account_login' %}"> Sign In </a></li>
                     <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
                 </div>
-
+                
 
                 {%endif%}
 

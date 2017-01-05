@@ -1,7 +1,0 @@
-{% extends "Base.html"%} {% block content %}
-<form method="post" action="{% url 'payment_page' %}">
-  {% csrf_token %}
-    {{ form.as_p }}
-<input class="btn btn-default btn-primary" type="submit" value="Done">
-</form>
-{% endblock %}
