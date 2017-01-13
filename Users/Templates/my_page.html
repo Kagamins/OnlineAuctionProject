@@ -1,10 +1,11 @@
 {% extends "Base.html"%} {% block content %}
-
-<div class='list-group'>
+<div class="panel panel-success">
+  <div class="panel-heading">My Products</div>
+<div class='panel panel-alert'>
 
     {% for auction in live_auctions%}
     <a href="{% url 'View_Auction' auction.auction.pk %}" class='list-group-item'>
-        <h4 class="list-group-item-heading">{{auction.auction.product.product_name}}</h4>
+        <h4 class="panel-heading">{{auction.auction.product.product_name}}</h4>
         <h4 class="list-group-item-heading">{{auction.auction.product.product_description}}</h4>
     </a>
     <a class="btn btn-default btn-primary" href="{% url 'View_Auction' auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
@@ -22,7 +23,7 @@
 
     <h4 class="list-group-item-heading">{{auction.product.product_name}}</h4>
     <h4 class="list-group-item-text">{{auction.product.product_description}}</h4>
-    <img src="{{MEDIA_URL}}{{auction.product.picture}}"></img>
+    <img src="{{auction.product.picture.url}}"></img>
 
 </a>
 <a href="{% url 'Edit_Auction' auction.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-pencil'> </span></a>
@@ -57,27 +58,5 @@
 
 
 
-  <!---
-{% if products.has_other_pages %}
-<ul class="pagination">
-  {% if product.has_previous %}
-    <li><a href="?page={{ product.previous_page_number }}">&laquo;</a></li>
-  {% else %}
-    <li class="disabled"><span>&laquo;</span></li>
-  {% endif %}
-  {% for i in product.paginator.page_range %}
-    {% if product.number == i %}
-      <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-    {% else %}
-      <li><a href="?page={{ i }}">{{ i }}</a></li>
-    {% endif %}
-  {% endfor %}
-  {% if product.has_next %}
-    <li><a href="?page={{ product.next_page_number }}">&raquo;</a></li>
-  {% else %}
-    <li class="disabled"><span>&raquo;</span></li>
-  {% endif %}
-</ul>
-{% endif %}
--->
+</div>
 {% endblock %}

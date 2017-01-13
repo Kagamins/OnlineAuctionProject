@@ -13,14 +13,14 @@ def get_image_path(instance, filename):
 
 class item(models.Model):
     CHOICES=(('C','Cars'),('P','Parts'))
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True,blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,)
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
-    picture = models.ImageField(null=True, blank=True)
+    picture = models.ImageField()
     product_description = models.TextField()
-    certificate = models.ImageField(null=True, blank=True)
-    product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES,null=True)
+    certificate = models.ImageField()
+    product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES)
 
     def get_absolute_url(self):
         return reverse(
@@ -37,9 +37,9 @@ class item(models.Model):
 class auction(models.Model):
     Choices = (('P','Premium'),('F','Freemium'))
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, null=True, blank=True)
+        settings.AUTH_USER_MODEL, )
     product = models.ForeignKey(item)
-    auction_type = models.CharField("auction_type",max_length=64 ,choices=Choices,null=True)
+    auction_type = models.CharField("auction_type",max_length=64 ,choices=Choices)
     auction_date = models.DateField()
     auction_time = models.TimeField()
 
@@ -52,9 +52,9 @@ class auction(models.Model):
 
 
 class live_auction(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
     auction = models.ForeignKey(auction)
-    Time_of_Auction = models.TimeField(null=True)
+    Time_of_Auction = models.TimeField()
     auction_bidding_open = models.BooleanField(default=False)
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
@@ -68,10 +68,10 @@ class live_auction(models.Model):
 
 class bid(models.Model):
     l_auction= models.ForeignKey(live_auction)
-    User_bid = models.BigIntegerField(null=True, help_text=("user bidding"))
+    User_bid = models.BigIntegerField( help_text=("user bidding"))
     Bidder = models.OneToOneField(
-            settings.AUTH_USER_MODEL, null=True, blank=True)
-    Time_of_Bid = models.TimeField(auto_now=True,null=True)
+            settings.AUTH_USER_MODEL)
+    Time_of_Bid = models.TimeField(auto_now=True)
     def get_absolute_url(self):
         return reverse(
             'home')
@@ -80,8 +80,8 @@ class bid(models.Model):
 
 class Payment(models.Model):
     CHOICES = (('Cash','Cash'),('Knet','Knet'),('Visa','Visa'))
-    User = models.OneToOneField(settings.AUTH_USER_MODEL,null=False)
-    Amount = models.BigIntegerField(null=False)
+    User = models.OneToOneField(settings.AUTH_USER_MODEL)
+    Amount = models.BigIntegerField()
     Payment_Method = models.CharField("Payment method",max_length=50,choices=CHOICES)
 
     def __str__(self):

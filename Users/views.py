@@ -77,6 +77,16 @@ def view_message_details(request):
         return render(request, 'view_message_list.html', {'messages': obj})
     else:
         return render(request, 'view_message_list.html', {'messages': obj})
+@login_required
+def my_page(request):
+    my_messages = message.objects.filter(receiver=request.user)
+    my_products = item.objects.filter(owner=request.user)
+    my_auctions = auction.objects.filter(user=request.user)
+    my_live_auctions = live_auction.objects.filter(
+        owner=request.user)
+
+    return render(request, 'my_page.html', {'messages': my_messages, 'products': my_products, 'auctions': my_auctions,'live_auctions': my_live_auctions})
+
 
 
 def create_user_profile(request):

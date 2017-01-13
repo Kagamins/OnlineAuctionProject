@@ -21,3 +21,7 @@ class FAQ(models.Model):
 
     def __str__(self):
         return u' {} : {} '.format( self.category, self.question )
+class Reply(models.Model):
+    question = models.ForeignKey(ticket)
+    answer = models.TextField()
+    
