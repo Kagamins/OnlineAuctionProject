@@ -71,12 +71,15 @@ def create_message_auction(request,pk):
     return render(request, 'create_message_auction.html', {'form': form,'receiver':pk})
 
 @login_required
-def view_message_details(request):
-    obj = message.objects.filter(receiver=request.user)
-    if obj:
-        return render(request, 'view_message_list.html', {'messages': obj})
-    else:
-        return render(request, 'view_message_list.html', {'messages': obj})
+def view_message_details(request,pk):
+    obj = message.objects.get(pk=pk)
+    return render(request, 'message_details.html', {'message': obj})
+
+@login_required
+def view_message_list(request):
+    obj = message.objects.filter(receiver_id=request.user.pk)
+    return render(request, 'message_list.html', {'messages': obj})
+
 @login_required
 def my_page(request):
     my_messages = message.objects.filter(receiver=request.user)

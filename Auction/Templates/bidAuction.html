@@ -10,14 +10,7 @@ function validate(){
 </script>
 <form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
     {% csrf_token %}
-    <tr>
-      <th>
-        <label for="id_User_bid">User bid:</label>
-      </th>
-      <td>
-        <input id="id_User_bid" name="User_bid" type="number" required  oninput=""="validate()" /><br/>
-    </td>
-    </tr>
+  {{form.as_table}}
     <input class="btn btn-default btn-primary" type="submit" value="Done!">
 </form>
 

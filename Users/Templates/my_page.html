@@ -11,7 +11,6 @@
     <a class="btn btn-default btn-primary" href="{% url 'View_Auction' auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
     {% endfor %}
 </div>
-{%if auction %}
 <h2> Auctions </h2>
 <div class='list-group'>
 
@@ -26,9 +25,7 @@
 <a href="{% url 'Edit_Auction' auction.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-pencil'> </span></a>
 {% endfor %}
 </div>
-{% endif %}
 
-{% if product %}
 <h2> Products </h2>
 <div class='list-group'>
 
@@ -46,7 +43,6 @@
 <a href="{% url 'product_delete' product.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
 {% endfor %}
 </div>
-{% endif %}
 
 
 </div>

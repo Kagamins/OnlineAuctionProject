@@ -72,15 +72,16 @@ def edit_auction(request,pk):
 def bid_auction(request,pk):
     auction = get_object_or_404(live_auction,pk=pk)
     bidders = bid.objects.filter(l_auction=auction)
+    bidder = request.user
     if request.method == 'POST':
         form = newBidForm(request.POST)
         if form.is_valid():
-            form.User_bid = self.get.cleaned_data('id_User_bid')
+
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
         form = newBidForm(
-            initial={'Bidder': request.user,'l_auction': auction})
+            initial={'Bidder': bidder,'l_auction': auction})
     return render(request, 'bidAuction.html', {'form': form,'live_auction': auction,'bids':bidders})
 
 

@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^Message/Create/$',views.create_message,name='Create_Message',),
     url(r'^Message/Create/(?P<pk>\d+)$',views.create_message_auction,name='Create_Message_Auction',),
     url(r'^view/mypage/$', views.my_page, name='My_Page',),
+    url(r'^Messages/View/(?P<pk>\d+)$',views.view_message_details,name='Message_Details',),
+    url(r'^Message/ListView$',views.view_message_list,name='Message_List',),
 
 
 ]

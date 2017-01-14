@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^bid/(?P<pk>\d+)$',
         views.bid_auction, name='Bid_Auction',),
     url(r'^bid/update/(?P<pk>\d+)$',
-        views.Bid_Auction.as_view(), name='Update_Bid_Auction',),
+        views.update_bid_auction, name='Update_Bid_Auction',),
 ]

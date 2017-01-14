@@ -28,4 +28,4 @@ class message(models.Model):
     body = models.TextField(max_length=400,null=True)
     date_time_sent = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return u"From : {} :To {} : Subject {} ".format(self.sender.name,self.receiver.name,self.subject)
+        return u"From : {} :To {} : Subject {} ".format(self.sender.username,self.receiver.username,self.subject)

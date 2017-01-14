@@ -1,0 +1,11 @@
+{% extends "Base.html" %} {% block content %}
+<div class="panel panel-success">
+<div class="panel-heading">
+{{message.subject}}
+{{message.date_time_sent}}
+</div>
+<div class="panel-text">
+  {{message.body}}
+</div>
+</div>
+{% endblock %}
