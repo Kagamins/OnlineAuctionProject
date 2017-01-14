@@ -1,13 +1,6 @@
 {% extends "Base.html"%}
 {% block content %}
-<script>
-var Validated= false;
-var valu = {{bids.User_bid}}
-function validate(){
-  document.getElementsByName('id_User_bid').input >valu;
 
-}
-</script>
 <form method="post" action="{% url 'Bid_Auction' live_auction.pk %}">
     {% csrf_token %}
   {{form.as_table}}

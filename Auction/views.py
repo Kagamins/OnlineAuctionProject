@@ -81,7 +81,7 @@ def bid_auction(request,pk):
             return HttpResponseRedirect('/success/url/')
     else:
         form = newBidForm(
-            initial={'Bidder': bidder,'l_auction': auction})
+            initial={'Bidder': request.user.pk,'l_auction': auction.pk})
     return render(request, 'bidAuction.html', {'form': form,'live_auction': auction,'bids':bidders})
 
 
