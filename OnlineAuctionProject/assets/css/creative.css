@@ -364,20 +364,6 @@ End of side navigation styles
     }
 }
 
-header {
-    position: relative;
-    width: 100%;
-    min-height: auto;
-    text-align: center;
-    color: ##333942;
-    background-image: url(../img/header.jpg);
-    background-position: center;
-    background-repeat: repeat-y;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
 
 header .header-content {
     position: relative;
@@ -401,7 +387,7 @@ header .header-content .header-content-inner p {
     margin-bottom: 50px;
     font-size: 16x;
     font-weight: 300;
-    color: rgba(255,255,255,.7);
+    color:black;
 }
 
 @media(min-width:768px) {

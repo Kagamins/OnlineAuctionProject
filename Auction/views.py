@@ -69,30 +69,32 @@ def edit_auction(request,pk):
         return render (request,'editAuction.html',{'form':form, 'auction' : auction})
 
 @login_required
-def bid_auction(request):
+def bid_auction(request,pk):
+    auction = get_object_or_404(live_auction,pk=pk)
+    bidders = bid.objects.filter(l_auction=auction)
     if request.method == 'POST':
         form = newBidForm(request.POST)
         if form.is_valid():
-            print('form is valid :D')
+            form.User_bid = self.get.cleaned_data('id_User_bid')
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
         form = newBidForm(
-            initial={'Bidder': request.user})
-    return render(request, 'bidAuction.html', {'form': form})
+            initial={'Bidder': request.user,'l_auction': auction})
+    return render(request, 'bidAuction.html', {'form': form,'live_auction': auction,'bids':bidders})
 
 
 @login_required
 def update_bid_auction(request, pk):
     bid = get_object_or_404(bid,pk=pk)
     if request.method == 'POST':
-        form = newBidForm(request.POST, instance=bid)
+        form = UpdateBidForm(request.POST, instance=bid)
         if form.is_valid():
             print('form is valid :D')
             form.save()
             return HttpResponseRedirect('/success/url/')
     else:
-        form = newBidForm(instance=bid)
+        form = UpdateBidForm(instance=bid)
     return render(request, 'update_bidAuction.html', {'form': form,'bid':bid})
 
 
@@ -132,7 +134,6 @@ def create_product(request):
 
 def product_details(request, pk):
     obj = get_object_or_404(item, pk=pk)
-    #alist = [x for x in obj]
     return render(request, 'product_details.html', {
         'item': obj},)
 
@@ -141,7 +142,7 @@ def auction_details(request, pk):
     obj = get_object_or_404(live_auction, pk=pk)
     obj_d = get_object_or_404(auction, pk=obj.auction_id)
     bids = bid.objects.filter(l_auction_id=obj.auction_id)
-    return render(request, 'auctiondetail.html', {'auction': obj_d, 'bidders': bids})
+    return render(request, 'auctiondetail.html', {'auction': obj_d, 'bidders': bids,'live_auction':obj})
 
 
 def index_page(request):

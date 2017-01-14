@@ -1,19 +1,23 @@
 {% extends "Base.html"%} {% block content %}
-<div class="list-group">
+<div class="panel panel-primary">
   <p id="time"></p>
-
+ <style>
+   p{
+     color:black;
+   }
+ </style>
   <script>
   //<====script to show the current date and time =====>
   document.getElementById("time").innerHTML = new Date();
   </script>
-    <p class="list-group-item-text">Auction Made by {{auction.user.username}}</p>
-    <h4 class="list-group-item-heading">{{auction.product.product_name}}</h4>
-    <p class="list-group-item-text">Product Description {{auction.product.product_description}}</p>
-    <p class="list-group-item-text">Date of Auction :{{auction.auction_date}}</p>
-    <p class="list-group-item-text">Time of Auction :{{auction.auction_time}}</p>
+    <div class="panel-heading">{{auction.product.product_name}}</div>
+    <p>Auction Made by {{auction.user.username}}</p>
+    <p>Product Description {{auction.product.product_description}}</p>
+    <p>Date of Auction :{{auction.auction_date}}</p>
+    <p>Time of Auction :{{auction.auction_time}}</p>
 
 </div>
-<a class="btn btn-default btn-primary"  href="{% url 'Bid_Auction' %}"> <span class = 'glyphicon glyphicon-edit'></span></a>
+<a class="btn btn-default btn-primary"  href="{% url 'Bid_Auction' live_auction.pk %}"> <span class = 'glyphicon glyphicon-edit'></span></a>
 <a class="btn btn-default btn-primary"  href="{% url 'Create_Message_Auction' auction.user.pk %}"><span class="glyphicon glyphicon-envelope"></span> </a>
 
 <a class="btn btn-default btn-primary"  href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span>  </a>

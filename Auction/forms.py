@@ -18,6 +18,7 @@ class newAuctionForm(forms.ModelForm):
 
 
         }
+
 class EditAuctionForm(forms.ModelForm):
     class Meta:
         model = auction
@@ -29,7 +30,7 @@ class newProductForm(forms.ModelForm):
         model = item
         fields = '__all__'
         widgets = {
-        'owner' : forms.HiddenInput, 
+        'owner' : forms.HiddenInput,
         'picture' : forms.ClearableFileInput()}
 
 class newBidForm(forms.ModelForm):
@@ -43,7 +44,12 @@ class newBidForm(forms.ModelForm):
         User_bid = self.cleaned_data.get('User_bid'),
         Time_of_Bid = self.cleaned_data.get('Time_of_Bid'),
         l_auction= self.cleaned_data.get('l_auction'))
-
+class UpdateBidForm(forms.ModelForm):
+    class Meta:
+        model = bid
+        fields = '__all__'
+        widgets  = {'Bidder' : forms.HiddenInput,
+                    'l_auction':forms.HiddenInput,}
 class newPaymentForm(forms.ModelForm):
     class Meta:
         model = Payment

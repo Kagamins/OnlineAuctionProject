@@ -12,7 +12,7 @@
           <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
   </a>
   <a  class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}">  <span class = " glyphicon glyphicon-eye-open">  </span></a>
-  <a  class="btn  btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
+  <a  class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
   {% empty %}
 
   <h2>
@@ -36,7 +36,7 @@
     </a>
     <a class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
 
-    <a class="btn  btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
+    <a class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
 {% endif %}
 {% empty %}
     <h2>
@@ -74,7 +74,7 @@ no  product search found
         <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
     </a>
     <a id="button"class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span><a id="button-text"class="btn_description">View Auction</a></a>
-    <a class="btn  btn-primary" href="{% url 'Bid_Auction'  %}"><span class = 'glyphicon glyphicon-edit'>  </span> </a> {% empty %}
+    <a class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span> </a> {% empty %}
 
     <h2>
     no  Auctions

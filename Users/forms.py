@@ -44,8 +44,9 @@ class Message_Form_Auction(forms.ModelForm):
 class EditUserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        exclude = ['user',]
+        fields = '__all__'
         widgets = {
                 'Date_Of_Birth' : DateWidget(bootstrap_version=3),
+                'user' : forms.HiddenInput,
 
         }

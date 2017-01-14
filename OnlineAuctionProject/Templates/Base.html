@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{%load staticfiles%}
 <head>
     </script>
 
@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="/static/css/animate.min.css" type="text/css">
@@ -40,7 +39,7 @@
     {% block media %} {% endblock %}
 </head>
 
-<body id="page-top">
+<body background="{% static 'img/header.jpg' %}"id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -62,14 +61,13 @@
                     <a href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span></span><b class="imgdescription">Home</b></a>
 
                 </div>
-                {%else%}
-
+                {% else %}
                 <span class="glyphicon glyphicon-option-vertical" style="font-size:30px;cursor:pointer" onclick="openNav()"> </span>
                 <div id="mySidenav" class="sidenav">
                     <li><a href="{% url 'account_login' %}"> Sign In </a></li>
                     <li><a href="{% url 'account_signup' %}"> Sign Up </a></li>
                 </div>
-                
+
 
                 {%endif%}
 
