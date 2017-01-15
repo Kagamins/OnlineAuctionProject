@@ -24,7 +24,7 @@ def createAuction(request):
         form = newAuctionForm(request.POST)
         if form.is_valid():
             obj = form.save()
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
     else:
 
         form = newAuctionForm(initial={'user': request.user.pk,
@@ -38,6 +38,26 @@ def createAuction(request):
         }
     )
 
+@login_required
+def createLiveAuction(request):
+
+    if request.method == 'POST':
+        form = newLiveAuctionForm(request.POST)
+        if form.is_valid():
+            obj = form.save()
+            return HttpResponseRedirect('/')
+    else:
+
+        form = newLiveAuctionForm(initial={'owner': request.user.pk,'auction_user':request.user.pk
+                                       })
+
+    return render(
+        request,
+        'createLiveAuction.html',
+        {
+            "form": form,
+        }
+    )
 
 class Create_Auction(CreateView):
     model = auction
@@ -64,7 +84,7 @@ def edit_auction(request,pk):
         form = newAuctionForm(request.POST, instance=auction)
         if form.is_Valid():
             form.save()
-            return HttpResponseRedirect('success')
+            return HttpResponseRedirect('/')
     else:
         form = newAuctionForm(instance=auction)
         return render (request,'editAuction.html',{'form':form, 'auction' : auction})
@@ -79,7 +99,7 @@ def bid_auction(request,pk):
             if form.is_valid():
                 message.objects.create(sender=request.user,receiver=auction.auction.user,subject="Notification:Bid",body="The Potentil Buyer "+request.user.username+" is Bidding On the Product "+auction.auction.product.product_name)
                 form.save()
-                return HttpResponseRedirect('/success/url/')
+                return HttpResponseRedirect('/')
         else:
             form = newBidForm(
                 initial={'Bidder': request.user.pk,'l_auction': auction.pk})
@@ -90,16 +110,15 @@ def bid_auction(request,pk):
 
 @login_required
 def update_bid_auction(request, pk):
-    bid = get_object_or_404(bid,pk=pk)
+    obj = get_object_or_404(bid,pk=pk)
     if request.method == 'POST':
-        form = UpdateBidForm(request.POST, instance=bid)
+        form = UpdateBidForm(request.POST, instance=obj)
         if form.is_valid():
-            print('form is valid :D')
             form.save()
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
     else:
-        form = UpdateBidForm(instance=bid)
-    return render(request, 'update_bidAuction.html', {'form': form,'bid':bid})
+        form = UpdateBidForm(instance=obj)
+    return render(request, 'update_bidAuction.html', {'form': form,'bid':obj})
 
 
 class Bid_Auction(UpdateView):
@@ -130,7 +149,7 @@ def create_product(request):
             form.save()
             messages.success(request, 'Product  has been  successfully added.')
 
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
     else:
         form = newProductForm(initial={'owner': request.user})
     return render(request, 'createItem.html', {'form': form})
@@ -146,7 +165,7 @@ def product_details(request, pk):
 def auction_details(request, pk):
     obj = get_object_or_404(live_auction, pk=pk)
     obj_d = get_object_or_404(auction, pk=obj.auction_id)
-    bids = bid.objects.filter(l_auction_id=obj.auction_id)
+    bids = bid.objects.filter(l_auction_id=obj.auction_id).order_by('-User_bid')
     return render(request, 'auctiondetail.html', {'auction': obj_d, 'bidders': bids,'live_auction':obj})
 
 
@@ -226,7 +245,7 @@ def edit_product(request, pk):
                 messages.success(
                     request, 'Product  has been  successfully edited.')
 
-                return HttpResponseRedirect('/success/url/')
+                return HttpResponseRedirect('/')
         else:
             form = newProductForm(instance=obj)
         return render(request, 'editItem.html', {'form': form, 'p': obj})
@@ -238,7 +257,7 @@ def payment_page(request):
         form = newPaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
     else:
         form = newPaymentForm(initial={'User': request.user})
     return render(request, 'payment_page.html', {'form': form})
@@ -249,7 +268,16 @@ def pictures_upload(request):
         form = newPictureUpload(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/success/url/')
+            return HttpResponseRedirect('/')
     else:
-        form= newPictureUpload(intial={'user':request.user.pk})
+        form= newPictureUpload(initial={'user':request.user.pk})
     return render (request,'upload_picture.html',{'form':form})
+
+@login_required
+def stop_auction(request,pk):
+    liveauction = live_auction.objects.get(pk=pk)
+    obj = bid.objects.filter(l_auction_id=pk).order_by('-User_bid')
+    liveauction.winining_bid == obj[0].User_bid
+    liveauction.auction_bidding_open = False
+    message.objects.create(sender=liveauction.owner,receiver=obj[0].Bidder,subject="Notification:Winner",body=" Congratualtion Buyer "+obj[0].Bidder.username+" You Won the Product "+liveauction.auction.product.product_name)
+    return HttpResponseRedirect('/')

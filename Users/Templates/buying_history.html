@@ -1,19 +1,39 @@
 {% extends "Base.html" %} {% block content %}
 <div class="panel panel-success">
   <div class="panel-heading">My Buying History</div>
-  <div class="Table">
+  <table style=" width:100%">
     <tr>
-      <th>
+      <th style="color: black;">
         Product Name
       </th>
-<th>
+<th style="color: black;">
 Product Price
 </th>
-<th>
+<th style="color: black;">
 Date Purchased
 </th>
+</tr>
+
+    {%for Product in Products%}
+  <tr>
+
+      <td style="color: black;">
+        {{Product.auction.product.product_name}}
+      </td>
+
+      <td style="color: black;">
+        {{Product.winining_bid}}
+      </td>
+
+      <td style="color: black;">
+        {{Product.auction.auction_date}}
+      </td>
+
     </tr>
-  </div>
+
+    {%endfor%}
+
+  </table>
 
 </div>
 {%endblock%}

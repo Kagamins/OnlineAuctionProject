@@ -103,9 +103,9 @@ def create_user_profile(request):
     return render(request, 'Signup.html', {'form': form})
 
 def buyer_history(request):
-    bids = bid.objects.filter(Bidder=request.user.pk)
-    return render (request,'buying_history.html')
+    products_won = live_auction.objects.filter(auction_winner=request.user.pk)
+    return render (request,'buying_history.html',{'Products':products_won})
 
 def seller_history(request):
-    auction_ = auction.objects.filter(user=request.user.pk)
-    return render (request,'selling_history.html',{'auction':auction_})
+    auction_ = live_auction.objects.filter(owner=request.user.pk)
+    return render (request,'selling_history.html',{'Products':auction_})

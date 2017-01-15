@@ -1,7 +1,7 @@
 {% extends "Base.html" %} {% block content %}
 <div class="panel panel-success">
   <div class="panel-heading">My Selling History</div>
-  <div class="Table">
+  <table>
     <tr>
       <th>
         Product Name
@@ -12,16 +12,24 @@ Product Price
 <th>
 Date Sold
 </th>
-    </tr>
+  </tr>
+{%for Product in Products%}
+
     <tr>
-      <td>
+      <td style="color: black;">
+        {{Product.auction.product.product_name}}
       </td>
-      <td>
+
+      <td style="color: black;">
+        {{Product.winining_bid}}
       </td>
-      <td>
+
+      <td style="color: black;">
+        {{Product.auction.auction_date}}
       </td>
     </tr>
-  </div>
+    {%endfor%}
+  </table>
 
 </div>
 

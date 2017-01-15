@@ -10,16 +10,23 @@
   //<====script to show the current date and time =====>
   document.getElementById("time").innerHTML = new Date();
   </script>
-    <div class="panel-heading">{{auction.product.product_name}}</div>
+    <a class="panel-heading"style="width:100%;" href="{% url 'product_details' auction.product.pk %}">{{auction.product.product_name}}</a>
     <p>Auction Made by {{auction.user.username}}</p>
-    <p>Product Description {{auction.product.product_description}}</p>
-    <p>Date of Auction :{{auction.auction_date}}</p>
-    <p>Time of Auction :{{auction.auction_time}}</p>
-
+    <p >Product Description {{auction.product.product_description}}</p>
+    <p>Date of Auction :{{auction.auction_date}}</p><div style="display: inline-block">
+    <p>Start Time of Auction :</p><p id="Start Time">{{auction.auction_time}}</p>
+  </div>
+  <div style="display: inline-block">
+    <p> End Time of Auction : </p><p id="EndTime">{{live_auction.End_Time_of_Auction}}</p>
+  </div>
 </div>
+{% if live_auction.auction_bidding_open %}
 <a class="btn btn-default btn-primary"  href="{% url 'Bid_Auction' live_auction.pk %}"> <span class = 'glyphicon glyphicon-edit'></span></a>
+{%endif%}
 <a class="btn btn-default btn-primary"  href="{% url 'Create_Message_Auction' auction.user.pk %}"><span class="glyphicon glyphicon-envelope"></span> </a>
-
+{% if request.user == auction.owner%}
+<a class="btn btn-default btn-primary"  href="{% url 'Stop_Auction' live_auction.pk %}"> <span class='glyphicon glyphicon-ok-sign'></span>  </a>
+{%endif%}
 <a class="btn btn-default btn-primary"  href="{% url 'home'  %}"> <span class='glyphicon glyphicon-home'></span>  </a>
 
 </form>
@@ -30,8 +37,11 @@
         <p class="list-group-item-text">{{b.User_bid}}</p>
     </a>
 </div>
+{% if live_auction.auction_bidding_open %}
+
 {% if b.Bidder == request.user%}
 <a class="btn btn-primary "href="{% url 'Update_Bid_Auction' b.pk %}"> <span class = 'glyphicon glyphicon-edit'></span> </a>
 {% endif %}
+{%endif%}
 {%endfor%}
 {% endblock %}

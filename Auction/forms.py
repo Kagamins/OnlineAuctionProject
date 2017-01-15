@@ -7,16 +7,17 @@ class newAuctionForm(forms.ModelForm):
     class Meta:
         model = auction
         fields = '__all__'
-        dateTimeOptions = {
-            'format': 'dd/mm/yyyy HH:ii P',
-            'autoclose': True,
-            'showMeridian': True
-        }
         widgets  = {'user' : forms.HiddenInput,
-                    'auction_date' : DateWidget(bootstrap_version=3),
-                    'auction_time' : TimeWidget(bootstrap_version=3)
 
 
+
+        }
+
+class newLiveAuctionForm(forms.ModelForm):
+    class Meta:
+        model = live_auction
+        exclude = ['winining_bid','auction_winner',]
+        widgets  = {'owner' : forms.HiddenInput,
         }
 
 class EditAuctionForm(forms.ModelForm):

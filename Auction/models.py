@@ -23,7 +23,7 @@ class item(models.Model):
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
-    pictures = models.ManyToManyField(Picture)
+    pictures = models.ImageField(null=True)
     product_description = models.TextField()
     certificate = models.ImageField()
     product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES)
@@ -61,6 +61,7 @@ class live_auction(models.Model):
     auction = models.ForeignKey(auction)
     End_Time_of_Auction = models.TimeField()
     auction_bidding_open = models.BooleanField(default=False)
+    winining_bid = models.BigIntegerField(null=True)
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
     auction_winner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='Auction_Winner',null=True)
@@ -71,6 +72,7 @@ class live_auction(models.Model):
     def get_absolute_url(self):
         return reverse(
             'home')
+
 
 class bid(models.Model):
     l_auction= models.ForeignKey(live_auction)
