@@ -10,6 +10,12 @@ from django.core.urlresolvers import *
 def get_image_path(instance, filename):
     return os.path.join('photos', str(instance.id), filename)
 
+class Picture(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,null=True)
+    picture = models.ImageField()
+    tittle = models.CharField(max_length=64)
+    def __str__(self):
+        return '{}'.format(self.tittle)
 
 class item(models.Model):
     CHOICES=(('C','Cars'),('P','Parts'))
@@ -17,7 +23,7 @@ class item(models.Model):
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
-    picture = models.ImageField()
+    pictures = models.ManyToManyField(Picture)
     product_description = models.TextField()
     certificate = models.ImageField()
     product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES)
@@ -42,7 +48,6 @@ class auction(models.Model):
     auction_type = models.CharField("auction_type",max_length=64 ,choices=Choices)
     auction_date = models.DateField()
     auction_time = models.TimeField()
-
     def __unicode__(self):
         return u"{} :{} : {}: {} : at {}".format(self.user.username, self.product.product_name, self.product.manufacture_year, self.auction_date, self.auction_time)
 
@@ -52,12 +57,13 @@ class auction(models.Model):
 
 
 class live_auction(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='Owner')
     auction = models.ForeignKey(auction)
-    Time_of_Auction = models.TimeField()
+    End_Time_of_Auction = models.TimeField()
     auction_bidding_open = models.BooleanField(default=False)
     initial_bid = models.BigIntegerField(
         null=True, help_text=("the initial bid"))
+    auction_winner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='Auction_Winner',null=True)
     def __str__(self):
         return u"{} : {}  ".format(self.auction, self.initial_bid)
     def __unicode__(self):

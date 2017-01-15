@@ -39,13 +39,20 @@ class newBidForm(forms.ModelForm):
         fields = '__all__'
         widgets  = {'Bidder' : forms.HiddenInput,
                         'l_auction': forms.HiddenInput,}
-    
+
 class UpdateBidForm(forms.ModelForm):
     class Meta:
         model = bid
         fields = '__all__'
         widgets  = {'Bidder' : forms.HiddenInput,
                     'l_auction':forms.HiddenInput,}
+
+class newPictureUpload(forms.ModelForm):
+    class Meta:
+        model = Picture
+        fields = '__all__'
+        widgets = {'user': forms.HiddenInput,}
+
 class newPaymentForm(forms.ModelForm):
     class Meta:
         model = Payment

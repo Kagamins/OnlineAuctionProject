@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^view/(?P<pk>\d+)$',views.auction_details, name='View_Auction',),
     url(r'^view/product/(?P<pk>\d+)$', views.product_details, name='product_details',),
     url(r'^pay/$', views.payment_page, name='payment_page',),
+    url(r'^upload/Picture$',views.pictures_upload, name="Upload_Picture",),
     url(r'^delete/product/(?P<pk>\d+)$', views.delete_product, name='product_delete',),
     url(r'^bid/(?P<pk>\d+)$',
         views.bid_auction, name='Bid_Auction',),

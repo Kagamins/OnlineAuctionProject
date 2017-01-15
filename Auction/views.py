@@ -12,6 +12,7 @@ from .models import *
 from Users.models import message
 from django.core.paginator import *
 from django import forms
+from django.http import *
 
 
 
@@ -72,17 +73,19 @@ def edit_auction(request,pk):
 def bid_auction(request,pk):
     auction = get_object_or_404(live_auction,pk=pk)
     bidders = bid.objects.filter(l_auction=auction)
-    bidder = request.user
-    if request.method == 'POST':
-        form = newBidForm(request.POST)
-        if form.is_valid():
-
-            form.save()
-            return HttpResponseRedirect('/success/url/')
+    if request.user != auction.auction.user:
+        if request.method == 'POST':
+            form = newBidForm(request.POST)
+            if form.is_valid():
+                message.objects.create(sender=request.user,receiver=auction.auction.user,subject="Notification:Bid",body="The Potentil Buyer "+request.user.username+" is Bidding On the Product "+auction.auction.product.product_name)
+                form.save()
+                return HttpResponseRedirect('/success/url/')
+        else:
+            form = newBidForm(
+                initial={'Bidder': request.user.pk,'l_auction': auction.pk})
+        return render(request, 'bidAuction.html', {'form': form,'live_auction': auction,'bids':bidders})
     else:
-        form = newBidForm(
-            initial={'Bidder': request.user.pk,'l_auction': auction.pk})
-    return render(request, 'bidAuction.html', {'form': form,'live_auction': auction,'bids':bidders})
+        raise Http404
 
 
 @login_required
@@ -135,8 +138,9 @@ def create_product(request):
 
 def product_details(request, pk):
     obj = get_object_or_404(item, pk=pk)
+    pictures_list = [x for x in obj.pictures.all()]
     return render(request, 'product_details.html', {
-        'item': obj},)
+        'item': obj,'picturs':pictures_list},)
 
 
 def auction_details(request, pk):
@@ -238,3 +242,14 @@ def payment_page(request):
     else:
         form = newPaymentForm(initial={'User': request.user})
     return render(request, 'payment_page.html', {'form': form})
+
+@login_required
+def pictures_upload(request):
+    if request.method =='POST':
+        form = newPictureUpload(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form= newPictureUpload(intial={'user':request.user.pk})
+    return render (request,'upload_picture.html',{'form':form})

@@ -26,6 +26,7 @@
 {% endfor %}
 </div>
 
+{% if product.exist %}
 <h2> Products </h2>
 <div class='list-group'>
 
@@ -43,6 +44,7 @@
 <a href="{% url 'product_delete' product.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
 {% endfor %}
 </div>
+{% endif %}
 
 
 </div>

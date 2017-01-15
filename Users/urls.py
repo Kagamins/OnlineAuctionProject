@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^view/mypage/$', views.my_page, name='My_Page',),
     url(r'^Messages/View/(?P<pk>\d+)$',views.view_message_details,name='Message_Details',),
     url(r'^Message/ListView$',views.view_message_list,name='Message_List',),
-
+    url(r'^Buying/History$',views.buyer_history,name='Buyer_History',),
+    url(r'^Selling/History$',views.seller_history,name='Seller_History',),
 
 ]

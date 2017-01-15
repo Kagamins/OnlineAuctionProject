@@ -31,7 +31,10 @@
 
 </td>
 <td>
-<img src="{{ item.picture.url }}" width="180" height="150" />
+  
+  {%for  image in pictures %}
+<img src="{{ image.picture.url }}" width="180" height="150" />
+  {%endfor%}
 </td>
 <td>
 {{ item.product_description }}
