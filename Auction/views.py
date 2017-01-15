@@ -170,7 +170,7 @@ def auction_details(request, pk):
 
 
 def index_page(request):
-    obj = live_auction.objects.all().order_by('-id')
+    obj = live_auction.objects.filter(auction__auction_type='F').order_by('-id')
     premium_obj = live_auction.objects.filter(
         auction__auction_type='P')
     queryset = item.objects.all()

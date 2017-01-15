@@ -23,7 +23,7 @@ class item(models.Model):
     product_name = models.CharField(max_length=18, help_text=('Car_Name'))
     manufacture_year = models.CharField(
         max_length=120, help_text=('E.g.: 2015/2016'))
-    pictures = models.ImageField(null=True)
+    pictures = models.ManyToManyField(Picture)
     product_description = models.TextField()
     certificate = models.ImageField()
     product_type = models.CharField("Product_type",max_length=64 ,choices=CHOICES)

@@ -3,12 +3,11 @@
 {% if p_auction%}
 <h2>Premium Auctions<h2>
 
-<div class='list-group' style="display:inline-block">
+<div class='list-group' >
   {% for a in p_auction %}
 
       <a class = 'list-group-item' href="{% url 'View_Auction' a.auction.pk  %}">
           <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
-          <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
   </a>
   {% empty %}
 
@@ -21,63 +20,66 @@
 <h2>
     No  Premium Auctions
     </h2> {%endif%}
-<h2>Auctions Available</h2> {% if request.method == 'POST' %}
-<div class='list-group' style="display:inline-block">
+{% if request.method == 'POST' %}
+<div class='list-group' >
+  <h2>
+       Auctions
+      </h2>
     {% for a in auction %}
     {%if a.auction_bidding_open %}
 
     <a href="{% url 'View_Auction' a.auction.pk %}" class='list-group-item'>
         <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
-        <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
 
     </a>
 {% endif %}
 {% empty %}
     <h2>
-    no  Auctions
+    No  Auctions
     </h2> {% endfor %}
 </div>
 {% if item_search%}
 <h2>Products Available</h2>
-<div class='list-group' style="display:inline-block">
+<div class='list-group' >
     {% for p in item_search %}
 
     <a href="{% url 'product_details' p.pk %}" class='list-group-item'>
 
         <h4 class="list-group-item-heading">{{p.product_name}} : {{p.manufacture_year}}</h4>
-        <h4 class="list-group-item-text">{{p.product_description}}</h4>
     </a>
 
 {% empty %}
 
     <h2>
-no  product search found
+No  product search found
 </h2> {% endfor %}
 </div>
 {%endif%} {%else%}
-<div class='list-group' style="display:inline-block">
+<div class='list-group' >
 
     {% for a in auction%}
     {%if a.auction_bidding_open%}
     <a href="{% url 'View_Auction' a.auction.pk %}" class='list-group-item'>
         <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
-        <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
     </a>
 
     {%else%}
 
   {%endif%}
+  {%empty %}
+  <h2>
+      No  Freemium Auctions
+      </h2>
  {% endfor %}
 </div>
 {%if product%}
 <h2>Products Available </h2>
-<div class='list-group' style="display:block">
+<div class='list-group' >
     {% for p in product %}
 
     <a href="{% url 'product_details' p.pk %}" class='list-group-item'>
 
         <h4 class="list-group-item-heading">{{p.product_name}}</h4>
-        <h4 class="list-group-item-text">{{p.product_description}}</h4>
         <img src="{{p.picture.url}}" width="180" height="150"></img>
 
     </a>

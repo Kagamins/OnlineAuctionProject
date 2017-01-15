@@ -24,12 +24,12 @@ class Create_User(CreateView):
 class Edit_User(UpdateView):
     model = User
     context_object_name = 'user'
-    exclude = ['user', ]
+    fields = ['name','email','Phone_number','Date_Of_Birth','address']
     template_name = 'edit_profile.html'
 
 @login_required
-def edit_profile(request):
-    obj = User.objects.get(user_id=request.user.id)
+def edit_profile(request,pk):
+    obj = User.objects.get(user_id=pk)
     if request.method == 'POST':
         form = EditUserProfileForm(request.POST, instance=obj)
         if form.is_valid():
