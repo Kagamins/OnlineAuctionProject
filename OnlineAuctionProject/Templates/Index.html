@@ -4,15 +4,13 @@
 {% if p_auction%}
 <h2>Premium Auctions<h2>
 
-<div class='list-group'>
+<div class='list-group' style="display : inline-block">
   {% for a in p_auction %}
 
-      <a class = 'list-group-item'>
+      <a href="{% url 'View_Auction' a.auction.pk %}" style="display : inline-block" class = 'list-group-item'>
           <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
           <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
   </a>
-  <a  class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}">  <span class = " glyphicon glyphicon-eye-open">  </span></a>
-  <a  class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
   {% empty %}
 
   <h2>
@@ -25,7 +23,7 @@
     No  Premium Auctions
     </h2> {%endif%}
 <h2>Auctions Available</h2> {% if request.method == 'POST' %}
-<div class='list-group'>
+<div class='list-group'style="display : inline-block">
     {% for a in auction %}
     {%if a.auction_bidding_open %}
 
@@ -34,9 +32,6 @@
         <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
 
     </a>
-    <a class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span></a>
-
-    <a class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk  %}"><span class = 'glyphicon glyphicon-edit'>  </span></a>
 {% endif %}
 {% empty %}
     <h2>
@@ -45,48 +40,41 @@
 </div>
 {% if item_search%}
 <h2>Products Available</h2>
-<div class='list-group'>
+<div class='list-group'style="display : inline-block">
     {% for p in item_search %}
 
-    <a href="{% url 'product_details' p.pk %}" class='panel panel-success'>
+    <a href="{% url 'product_details' p.pk %}" class='panel panel-success' style="display : inline-block">
 
         <h4 class="list-group-item-heading">{{p.product_name}} : {{p.manufacture_year}}</h4>
         <h4 class="list-group-item-text">{{p.product_description}}</h4>
     </a>
 
-    <a href="{% url 'product_details' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-eye-open'> </span></a>
-    {%if p.owner == request.user %}
-    <a href="{% url 'Edit_Product' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-pencil'> </span> </a>
-
-    <a href="{% url 'product_delete' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
-    {%endif%} {% empty %}
+{% empty %}
 
     <h2>
 no  product search found
 </h2> {% endfor %}
 </div>
-{%endif%} {%else%} {%if auction%}
-<div class='list-group'>
+{%endif%} {%else%}
+<div class='list-group'style="display : inline-block">
 
     {% for a in auction%}
-    <a href="{% url 'View_Auction' a.auction.pk %}" class='list-group-item'>
+    <a href="{% url 'View_Auction' a.auction.pk %}" class='list-group-item' style="display : inline-block">
         <h4 class="list-group-item-heading">{{a.auction.product.product_name}}</h4>
         <h4 class="list-group-item-heading">{{a.auction.product.product_description}}</h4>
     </a>
-    <a id="button"class="btn  btn-primary" href="{% url 'View_Auction' a.auction.pk %}"> <span class=" glyphicon glyphicon-eye-open">  </span><a id="button-text"class="btn_description">View Auction</a></a>
-    <a class="btn  btn-primary" href="{% url 'Bid_Auction' a.pk %}"><span class = 'glyphicon glyphicon-edit'>  </span> </a> {% empty %}
+{% empty %}
 
     <h2>
     no  Auctions
     </h2> {% endfor %}
 </div>
-{%endif%}
-{%if product%}
+
 <h2>Products Available </h2>
 <div class='list-group'>
     {% for p in product %}
 
-    <a href="{% url 'product_details' p.pk %}" class='list-group-item'>
+    <a href="{% url 'product_details' p.pk %}" class='list-group-item'style="display : inline-block">
 
         <h4 class="list-group-item-heading">{{p.product_name}}</h4>
         <h4 class="list-group-item-text">{{p.product_description}}</h4>
@@ -94,15 +82,10 @@ no  product search found
         <img src="{{p.picture.url}}"  class = "img-circle"height="200px"width="242px"></img>
         {%endif%}
     </a>
-    <a href="{% url 'product_details' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-eye-open'> </span></a>
-    {%if p.owner == request.user %}
-    <a href="{% url 'Edit_Product' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-pencil'> </span> </a>
+ {% endfor %} {%endif%}
 
-    <a href="{% url 'product_delete' p.pk %}" class='btn btn-primary'> <span class='glyphicon glyphicon-remove'> </span> </a>
+</div>
 
-    {%endif%} {% endfor %} {%endif%}
-
-</div>{%endif%}
 {% if product.has_other_pages %}
 <ul class="pagination">
   {% if product.has_previous %}

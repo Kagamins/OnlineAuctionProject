@@ -9,7 +9,7 @@
 <div id="FAQ" style="background-color:black; border-color:blue;">
     <div id="Account_QA">
         <h2>Account Related Questions</h2> {%for question in QAAS%}
-        <h3>{{question.question}}</h3>
+        <h3 style="color : orange">{{question.question}}</h3>
         <h4>{{question.answer}}</h4>
         <h2>-----------------------------------------------</h2> {%endfor%}
 
@@ -18,7 +18,7 @@
 
     <div id="Technical_QA">
         <h2>Technical Related Questions</h2> {%for question in QATS%}
-        <h3>{{question.question}}</h3>
+        <h3 style="color : orange">{{question.question}}</h3>
         <h4>{{question.answer}}</h4>
         <h2>-----------------------------------------------</h2> {%endfor%}
     </div>
@@ -26,7 +26,7 @@
 
     <div id="Transaction_QA">
         <h2>Transaction Related Questions</h2> {%for question in QATrS%}
-        <h3>{{question.question}}</h3>
+        <h3 style="color : orange">{{question.question}}</h3>
         <h4>{{question.answer}}</h4>
         <h2>-----------------------------------------------</h2> {%endfor%}
     </div>

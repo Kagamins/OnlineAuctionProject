@@ -3,10 +3,10 @@
   <div class="panel-heading">
     Inbox
   </div>
-{% for message in messages %}
-<a href="{% url 'Message_Details' message.pk %}" style="display : block; border-color: blue; border-radius:2px; border-width: 5px;">
+{% for msg in messages %}
+<a href="{% url 'Message_Details' msg.pk %}" style="display : block; border-color: blue; border-radius:2px; border-width: 5px;">
 <div class="panel-heading">
-  {{message.subject}}  {{message.date_time_sent}}
+  {{msg.subject}}  {{msg.date_time_sent}}
 </div>
 </a>
 {%endfor%}
